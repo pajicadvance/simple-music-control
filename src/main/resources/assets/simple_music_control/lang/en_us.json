@@ -1,0 +1,12 @@
+{
+  "text.config.simple_music_control.title": "Simple Music Control Config",
+  "text.config.simple_music_control.option.enableNextTrackKeybind": "Enable next track keybind",
+  "text.config.simple_music_control.option.stopMusicOnJukeboxUse": "Stop music when playing jukebox",
+  "text.config.simple_music_control.option.creativeMusicInSurvival": "Creative music in survival",
+  "text.config.simple_music_control.option.modifyMusicDelays": "Modify music delays",
+  "text.config.simple_music_control.option.musicMinDelay": "Minimum delay (seconds)",
+  "text.config.simple_music_control.option.musicMaxDelay": "Maximum delay (seconds)",
+
+  "category.simple_music_control.keybindings": "Simple Music Control",
+  "key.simple_music_control.next_music_track": "Next music track"
+}
