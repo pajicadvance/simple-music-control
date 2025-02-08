@@ -11,6 +11,9 @@ public class ConfigModel {
     public boolean enableNextTrackKeybind = true;
     public boolean stopMusicOnJukeboxUse = true;
     public boolean creativeMusicInSurvival = true;
+    public boolean situationalMusicInCreative = true;
+    public boolean unlockSituationalMusic = false;
+    @RangeConstraint(min = 1, max = 100) public int situationalMusicChance = 70;
     public boolean modifyMusicDelays = true;
     @PredicateConstraint("greaterThanZero") public int musicMinDelay = 600;
     @PredicateConstraint("greaterThanZero") public int musicMaxDelay = 1200;
