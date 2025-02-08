@@ -15,9 +15,9 @@ public class JukeboxBlockMixin {
             at = @At(
                     value = "INVOKE",
                     //? if 1.21.4
-                    target = "Lnet/minecraft/world/InteractionResult;consumesAction()Z"
+                    /*target = "Lnet/minecraft/world/InteractionResult;consumesAction()Z"*/
                     //? if <= 1.21.1
-                    /*target = "Lnet/minecraft/world/ItemInteractionResult;consumesAction()Z"*/
+                    target = "Lnet/minecraft/world/ItemInteractionResult;consumesAction()Z"
             )
     )
     private boolean stopMusicOnJukeboxPlay(boolean original) {

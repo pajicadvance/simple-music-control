@@ -18,6 +18,15 @@ public class ModClientConfig {
     private static final ModConfigSpec.BooleanValue CREATIVE_MUSIC_IN_SURVIVAL = BUILDER
             .translation("text.config.simple_music_control.option.creativeMusicInSurvival")
             .define("creativeMusicInSurvival", true);
+    private static final ModConfigSpec.BooleanValue SITUATIONAL_MUSIC_IN_CREATIVE = BUILDER
+            .translation("text.config.simple_music_control.option.situationalMusicInCreative")
+            .define("situationalMusicInCreative", true);
+    private static final ModConfigSpec.BooleanValue UNLOCK_SITUATIONAL_MUSIC = BUILDER
+            .translation("text.config.simple_music_control.option.unlockSituationalMusic")
+            .define("unlockSituationalMusic", false);
+    private static final ModConfigSpec.IntValue SITUATIONAL_MUSIC_CHANCE = BUILDER
+            .translation("text.config.simple_music_control.option.situationalMusicChance")
+            .defineInRange("situationalMusicChance", 70, 1, 100);
     private static final ModConfigSpec.BooleanValue MODIFY_MUSIC_DELAYS = BUILDER
             .translation("text.config.simple_music_control.option.modifyMusicDelays")
             .define("modifyMusicDelays", true);
@@ -33,6 +42,9 @@ public class ModClientConfig {
     public static boolean enableNextTrackKeybind;
     public static boolean stopMusicOnJukeboxUse;
     public static boolean creativeMusicInSurvival;
+    public static boolean situationalMusicInCreative;
+    public static boolean unlockSituationalMusic;
+    public static int situationalMusicChance;
     public static boolean modifyMusicDelays;
     public static int musicMinDelay;
     public static int musicMaxDelay;
@@ -52,6 +64,9 @@ public class ModClientConfig {
             enableNextTrackKeybind = ENABLE_NEXT_TRACK_KEYBIND.get();
             stopMusicOnJukeboxUse = STOP_MUSIC_ON_JUKEBOX_USE.get();
             creativeMusicInSurvival = CREATIVE_MUSIC_IN_SURVIVAL.get();
+            situationalMusicInCreative = SITUATIONAL_MUSIC_IN_CREATIVE.get();
+            unlockSituationalMusic = UNLOCK_SITUATIONAL_MUSIC.get();
+            situationalMusicChance = SITUATIONAL_MUSIC_CHANCE.get();
             modifyMusicDelays = MODIFY_MUSIC_DELAYS.get();
             musicMinDelay = MUSIC_MIN_DELAY.get();
             musicMaxDelay = MUSIC_MAX_DELAY.get();
