@@ -1,7 +1,7 @@
 package me.pajic.simple_music_control.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import me.pajic.simple_music_control.Main;
+import me.pajic.simple_music_control.config.ModConfig;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -24,7 +24,7 @@ public class JukeboxBlockMixin {
             )
     )
     private boolean stopMusicOnJukeboxPlay(boolean original) {
-        if (Main.CONFIG.stopMusicOnJukeboxUse() && original) {
+        if (ModConfig.stopMusicOnJukeboxUse && original) {
             Minecraft.getInstance().getMusicManager().stopPlaying();
         }
         return original;

@@ -1,6 +1,6 @@
 package me.pajic.simple_music_control.mixin;
 
-import me.pajic.simple_music_control.Main;
+import me.pajic.simple_music_control.config.ModConfig;
 import net.minecraft.sounds.Musics;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
@@ -14,8 +14,8 @@ public class MusicsMixin {
             constant = @Constant(intValue = 12000)
     )
     private static int modifyMinSurvivalMusicDelay(int original) {
-        if (Main.CONFIG.modifyMusicDelays()) {
-            return Main.CONFIG.musicMinDelay() * 20;
+        if (ModConfig.modifyMusicDelays) {
+            return ModConfig.musicMinDelay * 20;
         }
         return original;
     }
@@ -25,8 +25,8 @@ public class MusicsMixin {
             constant = @Constant(intValue = 24000)
     )
     private static int modifyMaxSurvivalMusicDelay(int original) {
-        if (Main.CONFIG.modifyMusicDelays()) {
-            return Main.CONFIG.musicMaxDelay() * 20;
+        if (ModConfig.modifyMusicDelays) {
+            return ModConfig.musicMaxDelay * 20;
         }
         return original;
     }
@@ -36,8 +36,8 @@ public class MusicsMixin {
             constant = @Constant(intValue = 12000)
     )
     private static int modifyMinCreativeMusicDelay(int original) {
-        if (Main.CONFIG.modifyMusicDelays()) {
-            return Main.CONFIG.musicMinDelay() * 20;
+        if (ModConfig.modifyMusicDelays) {
+            return ModConfig.musicMinDelay * 20;
         }
         return original;
     }
@@ -47,8 +47,8 @@ public class MusicsMixin {
             constant = @Constant(intValue = 24000)
     )
     private static int modifyMaxCreativeMusicDelay(int original) {
-        if (Main.CONFIG.modifyMusicDelays()) {
-            return Main.CONFIG.musicMaxDelay() * 20;
+        if (ModConfig.modifyMusicDelays) {
+            return ModConfig.musicMaxDelay * 20;
         }
         return original;
     }

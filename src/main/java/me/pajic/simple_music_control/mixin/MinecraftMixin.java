@@ -2,7 +2,7 @@ package me.pajic.simple_music_control.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import me.pajic.simple_music_control.ClientMain;
-import me.pajic.simple_music_control.Main;
+import me.pajic.simple_music_control.config.ModConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.sounds.Music;
@@ -29,7 +29,7 @@ public class MinecraftMixin {
             )
     )
     private Music allowCreativeMusicInSurvival(Music original) {
-        return Main.CONFIG.creativeMusicInSurvival() ? Musics.CREATIVE : original;
+        return ModConfig.creativeMusicInSurvival ? Musics.CREATIVE : original;
     }
 
     @ModifyExpressionValue(
@@ -40,7 +40,7 @@ public class MinecraftMixin {
             )
     )
     private boolean skipUnderwaterCheckIfSituationalMusicUnlocked(boolean original) {
-        return !Main.CONFIG.unlockSituationalMusic() && original;
+        return !ModConfig.unlockSituationalMusic && original;
     }
 
     //? if <= 1.21.1 {
@@ -63,7 +63,7 @@ public class MinecraftMixin {
             )
     )
     private Music allowSituationalMusicInCreative(Music original) {
-        return Main.CONFIG.situationalMusicInCreative() ? ClientMain.pickRandomSituationalMusic(player).orElse(player.level().getBiome(player.blockPosition()).value().getBackgroundMusic().orElse(original)) : original;
+        return ModConfig.situationalMusicInCreative ? ClientMain.pickRandomSituationalMusic(player).orElse(player.level().getBiome(player.blockPosition()).value().getBackgroundMusic().orElse(original)) : original;
     }
     //?}
 
@@ -87,7 +87,7 @@ public class MinecraftMixin {
             )
     )
     private Music allowSituationalMusicInCreative(Music original) {
-        return Main.CONFIG.situationalMusicInCreative() ? ClientMain.pickRandomSituationalMusic(player).orElse(player.level().getBiome(player.blockPosition()).value().getBackgroundMusic().orElse(SimpleWeightedRandomList.single(original))).getRandomValue(player.level().random).orElse(original) : original;
+        return ModConfig.situationalMusicInCreative ? ClientMain.pickRandomSituationalMusic(player).orElse(player.level().getBiome(player.blockPosition()).value().getBackgroundMusic().orElse(SimpleWeightedRandomList.single(original))).getRandomValue(player.level().random).orElse(original) : original;
     }
     *///?}
 }

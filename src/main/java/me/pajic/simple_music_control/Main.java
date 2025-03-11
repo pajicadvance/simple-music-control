@@ -5,8 +5,8 @@ import net.fabricmc.api.ModInitializer;
 
 public class Main implements ModInitializer {
 
-    public static final ModConfig CONFIG = ModConfig.createAndLoad();
-
     @Override
-    public void onInitialize() {}
+    public void onInitialize() {
+        ModConfig.HANDLER.load();
+    }
 }

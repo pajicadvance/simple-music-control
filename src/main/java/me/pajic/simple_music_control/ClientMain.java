@@ -1,5 +1,6 @@
 package me.pajic.simple_music_control;
 
+import me.pajic.simple_music_control.config.ModConfig;
 import me.pajic.simple_music_control.keybind.ModKeybinds;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.player.LocalPlayer;
@@ -48,16 +49,16 @@ public class ClientMain implements ClientModInitializer {
 
     //? if <= 1.21.1 {
     public static Optional<Music> pickRandomSituationalMusic(LocalPlayer player) {
-        if (Main.CONFIG.unlockSituationalMusic()) {
-            if (player.level().random.nextFloat() < (float) Main.CONFIG.situationalMusicChance() / 100) {
+        if (ModConfig.unlockSituationalMusic) {
+            if (player.level().random.nextFloat() < (float) ModConfig.situationalMusicChance / 100) {
                 if (player.level().dimension() == Level.OVERWORLD) {
-                    return Optional.of(ClientMain.OVERWORLD_SITUATIONAL_MUSIC.get(player.level().random.nextInt(ClientMain.OVERWORLD_SITUATIONAL_MUSIC.size())));
+                    return Optional.of(OVERWORLD_SITUATIONAL_MUSIC.get(player.level().random.nextInt(OVERWORLD_SITUATIONAL_MUSIC.size())));
                 } else if (player.level().dimension() == Level.NETHER) {
-                    return Optional.of(ClientMain.NETHER_SITUATIONAL_MUSIC.get(player.level().random.nextInt(ClientMain.NETHER_SITUATIONAL_MUSIC.size())));
+                    return Optional.of(NETHER_SITUATIONAL_MUSIC.get(player.level().random.nextInt(NETHER_SITUATIONAL_MUSIC.size())));
                 }
             }
             else if (player.isCreative()) return Optional.of(Musics.CREATIVE);
-            else return Main.CONFIG.creativeMusicInSurvival() ? Optional.of(Musics.CREATIVE) : Optional.of(Musics.GAME);
+            else return ModConfig.creativeMusicInSurvival ? Optional.of(Musics.CREATIVE) : Optional.of(Musics.GAME);
         }
         return Optional.empty();
     }
@@ -65,16 +66,16 @@ public class ClientMain implements ClientModInitializer {
 
     //? if 1.21.4 {
     /*public static Optional<SimpleWeightedRandomList<Music>> pickRandomSituationalMusic(LocalPlayer player) {
-        if (Main.CONFIG.unlockSituationalMusic()) {
-            if (player.level().random.nextFloat() < (float) Main.CONFIG.situationalMusicChance() / 100) {
+        if (ModConfig.unlockSituationalMusic) {
+            if (player.level().random.nextFloat() < (float) ModConfig.situationalMusicChance / 100) {
                 if (player.level().dimension() == Level.OVERWORLD) {
-                    return Optional.of(SimpleWeightedRandomList.single(ClientMain.OVERWORLD_SITUATIONAL_MUSIC.get(player.level().random.nextInt(ClientMain.OVERWORLD_SITUATIONAL_MUSIC.size()))));
+                    return Optional.of(SimpleWeightedRandomList.single(OVERWORLD_SITUATIONAL_MUSIC.get(player.level().random.nextInt(OVERWORLD_SITUATIONAL_MUSIC.size()))));
                 } else if (player.level().dimension() == Level.NETHER) {
-                    return Optional.of(SimpleWeightedRandomList.single(ClientMain.NETHER_SITUATIONAL_MUSIC.get(player.level().random.nextInt(ClientMain.NETHER_SITUATIONAL_MUSIC.size()))));
+                    return Optional.of(SimpleWeightedRandomList.single(NETHER_SITUATIONAL_MUSIC.get(player.level().random.nextInt(NETHER_SITUATIONAL_MUSIC.size()))));
                 }
             }
             else if (player.isCreative()) return Optional.of(SimpleWeightedRandomList.single(Musics.CREATIVE));
-            else return Main.CONFIG.creativeMusicInSurvival() ? Optional.of(SimpleWeightedRandomList.single(Musics.CREATIVE)) : Optional.of(SimpleWeightedRandomList.single(Musics.GAME));
+            else return ModConfig.creativeMusicInSurvival ? Optional.of(SimpleWeightedRandomList.single(Musics.CREATIVE)) : Optional.of(SimpleWeightedRandomList.single(Musics.GAME));
         }
         return Optional.empty();
     }

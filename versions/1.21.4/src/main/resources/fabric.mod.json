@@ -15,6 +15,9 @@
     ],
     "main": [
       "me.pajic.simple_music_control.Main"
+    ],
+    "modmenu": [
+      "me.pajic.simple_music_control.config.ModMenuIntegration"
     ]
   },
   "mixins": [
@@ -26,6 +29,6 @@
     "minecraft": [
       "1.21.4"
     ],
-    "owo-lib": "*"
+    "yet_another_config_lib_v3": "*"
   }
 }
