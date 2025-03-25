@@ -16,6 +16,8 @@ import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 //? if 1.21.4
 /*import net.minecraft.util.random.SimpleWeightedRandomList;*/
+//? if 1.21.5
+/*import net.minecraft.util.random.WeightedList;*/
 
 import java.util.List;
 import java.util.Optional;
@@ -83,6 +85,23 @@ public class ClientMain {
             }
             else if (player.isCreative()) return Optional.of(SimpleWeightedRandomList.single(Musics.CREATIVE));
             else return ModClientConfig.creativeMusicInSurvival ? Optional.of(SimpleWeightedRandomList.single(Musics.CREATIVE)) : Optional.of(SimpleWeightedRandomList.single(Musics.GAME));
+        }
+        return Optional.empty();
+    }
+    *///?}
+
+    //? if 1.21.5 {
+    /*public static Optional<WeightedList<Music>> pickRandomSituationalMusic(LocalPlayer player) {
+        if (ModClientConfig.unlockSituationalMusic) {
+            if (player.level().random.nextFloat() < (float) ModClientConfig.situationalMusicChance / 100) {
+                if (player.level().dimension() == Level.OVERWORLD) {
+                    return Optional.of(WeightedList.of(OVERWORLD_SITUATIONAL_MUSIC.get(player.level().random.nextInt(OVERWORLD_SITUATIONAL_MUSIC.size()))));
+                } else if (player.level().dimension() == Level.NETHER) {
+                    return Optional.of(WeightedList.of(NETHER_SITUATIONAL_MUSIC.get(player.level().random.nextInt(NETHER_SITUATIONAL_MUSIC.size()))));
+                }
+            }
+            else if (player.isCreative()) return Optional.of(WeightedList.of(Musics.CREATIVE));
+            else return ModClientConfig.creativeMusicInSurvival ? Optional.of(WeightedList.of(Musics.CREATIVE)) : Optional.of(WeightedList.of(Musics.GAME));
         }
         return Optional.empty();
     }

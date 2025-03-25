@@ -13,6 +13,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 //? if 1.21.4
 /*import net.minecraft.util.random.SimpleWeightedRandomList;*/
+//? if 1.21.5
+/*import net.minecraft.util.random.WeightedList;*/
 
 import java.util.Optional;
 
@@ -67,7 +69,7 @@ public class MinecraftMixin {
     }
     //?}
 
-    //? if 1.21.4 {
+    //? if >= 1.21.4 {
     /*@ModifyExpressionValue(
             method = "getSituationalMusic",
             at = @At(
@@ -75,9 +77,16 @@ public class MinecraftMixin {
                     target = "Lnet/minecraft/world/level/biome/Biome;getBackgroundMusic()Ljava/util/Optional;"
             )
     )
-    private Optional<SimpleWeightedRandomList<Music>> unlockSituationalMusicInSurvival(Optional<SimpleWeightedRandomList<Music>> original) {
+    //? if 1.21.4 {
+    /^private Optional<SimpleWeightedRandomList<Music>> unlockSituationalMusicInSurvival(Optional<SimpleWeightedRandomList<Music>> original) {
         return ClientMain.pickRandomSituationalMusic(player).or(() -> original);
     }
+    ^///?}
+    //? if 1.21.5 {
+    /^private Optional<WeightedList<Music>> unlockSituationalMusicInSurvival(Optional<WeightedList<Music>> original) {
+        return ClientMain.pickRandomSituationalMusic(player).or(() -> original);
+    }
+    ^///?}
 
     @ModifyExpressionValue(
             method = "getSituationalMusic",
@@ -87,7 +96,12 @@ public class MinecraftMixin {
             )
     )
     private Music allowSituationalMusicInCreative(Music original) {
-        return ModClientConfig.situationalMusicInCreative ? ClientMain.pickRandomSituationalMusic(player).orElse(player.level().getBiome(player.blockPosition()).value().getBackgroundMusic().orElse(SimpleWeightedRandomList.single(original))).getRandomValue(player.level().random).orElse(original) : original;
+        return ModClientConfig.situationalMusicInCreative ? ClientMain.pickRandomSituationalMusic(player).orElse(player.level().getBiome(player.blockPosition()).value().getBackgroundMusic().orElse(
+                //? if 1.21.4
+                /^SimpleWeightedRandomList.single(original))).getRandomValue^/
+                //? if 1.21.5
+                /^WeightedList.of(original))).getRandom^/
+        (player.level().random).orElse(original) : original;
     }
     *///?}
 }
