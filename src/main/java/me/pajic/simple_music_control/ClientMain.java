@@ -10,6 +10,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.Level;
 //? if 1.21.4
 /*import net.minecraft.util.random.SimpleWeightedRandomList;*/
+//? if 1.21.5
+import net.minecraft.util.random.WeightedList;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,7 +50,7 @@ public class ClientMain implements ClientModInitializer {
     );
 
     //? if <= 1.21.1 {
-    public static Optional<Music> pickRandomSituationalMusic(LocalPlayer player) {
+    /*public static Optional<Music> pickRandomSituationalMusic(LocalPlayer player) {
         if (ModConfig.unlockSituationalMusic) {
             if (player.level().random.nextFloat() < (float) ModConfig.situationalMusicChance / 100) {
                 if (player.level().dimension() == Level.OVERWORLD) {
@@ -62,7 +64,7 @@ public class ClientMain implements ClientModInitializer {
         }
         return Optional.empty();
     }
-    //?}
+    *///?}
 
     //? if 1.21.4 {
     /*public static Optional<SimpleWeightedRandomList<Music>> pickRandomSituationalMusic(LocalPlayer player) {
@@ -80,6 +82,23 @@ public class ClientMain implements ClientModInitializer {
         return Optional.empty();
     }
     *///?}
+
+    //? if 1.21.5 {
+    public static Optional<WeightedList<Music>> pickRandomSituationalMusic(LocalPlayer player) {
+        if (ModConfig.unlockSituationalMusic) {
+            if (player.level().random.nextFloat() < (float) ModConfig.situationalMusicChance / 100) {
+                if (player.level().dimension() == Level.OVERWORLD) {
+                    return Optional.of(WeightedList.of(OVERWORLD_SITUATIONAL_MUSIC.get(player.level().random.nextInt(OVERWORLD_SITUATIONAL_MUSIC.size()))));
+                } else if (player.level().dimension() == Level.NETHER) {
+                    return Optional.of(WeightedList.of(NETHER_SITUATIONAL_MUSIC.get(player.level().random.nextInt(NETHER_SITUATIONAL_MUSIC.size()))));
+                }
+            }
+            else if (player.isCreative()) return Optional.of(WeightedList.of(Musics.CREATIVE));
+            else return ModConfig.creativeMusicInSurvival ? Optional.of(WeightedList.of(Musics.CREATIVE)) : Optional.of(WeightedList.of(Musics.GAME));
+        }
+        return Optional.empty();
+    }
+    //?}
 
     @Override
     public void onInitializeClient() {
