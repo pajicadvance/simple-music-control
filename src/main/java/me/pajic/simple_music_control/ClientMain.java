@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 //? if 1.21.4
 /*import net.minecraft.util.random.SimpleWeightedRandomList;*/
 //? if 1.21.5
-import net.minecraft.util.random.WeightedList;
+/*import net.minecraft.util.random.WeightedList;*/
 
 import java.util.List;
 import java.util.Optional;
@@ -50,7 +50,7 @@ public class ClientMain implements ClientModInitializer {
     );
 
     //? if <= 1.21.1 {
-    /*public static Optional<Music> pickRandomSituationalMusic(LocalPlayer player) {
+    public static Optional<Music> pickRandomSituationalMusic(LocalPlayer player) {
         if (ModConfig.unlockSituationalMusic) {
             if (player.level().random.nextFloat() < (float) ModConfig.situationalMusicChance / 100) {
                 if (player.level().dimension() == Level.OVERWORLD) {
@@ -64,7 +64,7 @@ public class ClientMain implements ClientModInitializer {
         }
         return Optional.empty();
     }
-    *///?}
+    //?}
 
     //? if 1.21.4 {
     /*public static Optional<SimpleWeightedRandomList<Music>> pickRandomSituationalMusic(LocalPlayer player) {
@@ -84,7 +84,7 @@ public class ClientMain implements ClientModInitializer {
     *///?}
 
     //? if 1.21.5 {
-    public static Optional<WeightedList<Music>> pickRandomSituationalMusic(LocalPlayer player) {
+    /*public static Optional<WeightedList<Music>> pickRandomSituationalMusic(LocalPlayer player) {
         if (ModConfig.unlockSituationalMusic) {
             if (player.level().random.nextFloat() < (float) ModConfig.situationalMusicChance / 100) {
                 if (player.level().dimension() == Level.OVERWORLD) {
@@ -98,7 +98,7 @@ public class ClientMain implements ClientModInitializer {
         }
         return Optional.empty();
     }
-    //?}
+    *///?}
 
     @Override
     public void onInitializeClient() {
