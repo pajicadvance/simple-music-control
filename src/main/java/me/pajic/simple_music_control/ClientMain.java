@@ -144,7 +144,6 @@ public class ClientMain {
                     jukeboxes.put(pos, true);
                     client.getMusicManager().stopPlaying();
                 }
-                System.out.println(pos + " " + jukebox.getBooleanValue());
             }
         }
     }
