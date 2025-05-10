@@ -1,5 +1,7 @@
 package me.pajic.simple_music_control;
 
+import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
+import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
 import me.pajic.simple_music_control.config.ModClientConfig;
 import me.pajic.simple_music_control.keybind.ModKeybinds;
 import net.minecraft.client.Minecraft;
@@ -18,6 +20,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.level.LevelEvent;
 //? if 1.21.4
 /*import net.minecraft.util.random.SimpleWeightedRandomList;*/
 //? if 1.21.5
@@ -60,22 +63,23 @@ public class ClientMain {
             Musics.createGameMusic(SoundEvents.MUSIC_BIOME_WARPED_FOREST)
     );
 
-    public static boolean jukeboxPlaying = false;
-    public static BlockPos jukeboxPos = null;
+    public static Object2BooleanOpenHashMap<BlockPos> jukeboxes = new Object2BooleanOpenHashMap<>();
 
     public static void onJukeboxPlay(Level level, Minecraft minecraft, BlockPos pos) {
         if (ModClientConfig.stopMusicOnJukeboxUse && level != null) {
             minecraft.getMusicManager().stopPlaying();
-            jukeboxPlaying = true;
-            jukeboxPos = pos;
+            jukeboxes.put(pos, true);
         }
     }
 
-    public static void onJukeboxStop() {
+    public static void onJukeboxStop(BlockPos pos) {
         if (ModClientConfig.stopMusicOnJukeboxUse) {
-            jukeboxPlaying = false;
-            jukeboxPos = null;
+            jukeboxes.removeBoolean(pos);
         }
+    }
+
+    public static boolean noJukeboxesInRange() {
+        return jukeboxes.object2BooleanEntrySet().stream().noneMatch(Object2BooleanMap.Entry::getBooleanValue);
     }
 
     //? if <= 1.21.1 {
@@ -131,19 +135,28 @@ public class ClientMain {
 
     public static void onClientTick(ClientTickEvent.Post event) {
         Minecraft client = Minecraft.getInstance();
-        if (ModClientConfig.stopMusicOnJukeboxUse && client.player != null && jukeboxPos != null) {
-            if (client.player.distanceToSqr(jukeboxPos.getX(), jukeboxPos.getY(), jukeboxPos.getZ()) > 4096) {
-                jukeboxPlaying = false;
-            } else {
-                jukeboxPlaying = true;
-                client.getMusicManager().stopPlaying();
+        if (ModClientConfig.stopMusicOnJukeboxUse && client.player != null && !jukeboxes.isEmpty()) {
+            for (Object2BooleanMap.Entry<BlockPos> jukebox : jukeboxes.object2BooleanEntrySet()) {
+                BlockPos pos = jukebox.getKey();
+                if (client.player.distanceToSqr(pos.getX(), pos.getY(), pos.getZ()) > 4096) {
+                    jukeboxes.put(pos, false);
+                } else {
+                    jukeboxes.put(pos, true);
+                    client.getMusicManager().stopPlaying();
+                }
+                System.out.println(pos + " " + jukebox.getBooleanValue());
             }
         }
+    }
+
+    public static void onLevelUnload(LevelEvent.Unload event) {
+        jukeboxes.clear();
     }
 
     public ClientMain(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(ModKeybinds::registerKeybinds);
         NeoForge.EVENT_BUS.addListener(ClientMain::onClientTick);
+        NeoForge.EVENT_BUS.addListener(ClientMain::onLevelUnload);
         modContainer.registerConfig(ModConfig.Type.CLIENT, ModClientConfig.CLIENT_SPEC);
         modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }

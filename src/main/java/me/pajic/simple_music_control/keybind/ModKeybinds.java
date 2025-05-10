@@ -32,7 +32,7 @@ public class ModKeybinds {
     @SubscribeEvent
     public static void onClientTick(ClientTickEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
-        if (ModClientConfig.enableNextTrackKeybind && NEXT_MUSIC_TRACK.get().consumeClick() && !ClientMain.jukeboxPlaying && mc.player != null) {
+        if (ModClientConfig.enableNextTrackKeybind && NEXT_MUSIC_TRACK.get().consumeClick() && ClientMain.noJukeboxesInRange() && mc.player != null) {
             mc.getMusicManager().stopPlaying();
             mc.getMusicManager().startPlaying(mc.getSituationalMusic());
         }

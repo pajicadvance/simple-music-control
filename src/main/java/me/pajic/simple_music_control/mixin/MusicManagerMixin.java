@@ -20,8 +20,8 @@ public class MusicManagerMixin {
                     target = "Lnet/minecraft/client/sounds/MusicManager;startPlaying(Lnet/minecraft/sounds/Music;)V"
             )
     )
-    private boolean dontPlayIfJukeboxPlaying(MusicManager instance, Music music) {
-        return !ClientMain.jukeboxPlaying;
+    private boolean dontPlayIfJukeboxInRange(MusicManager instance, Music music) {
+        return ClientMain.noJukeboxesInRange();
     }
     //?}
 
@@ -33,8 +33,8 @@ public class MusicManagerMixin {
                     target = "Lnet/minecraft/client/sounds/MusicManager;startPlaying(Lnet/minecraft/client/sounds/MusicInfo;)V"
             )
     )
-    private boolean dontPlayIfJukeboxPlaying(MusicManager instance, MusicInfo music) {
-        return !ClientMain.jukeboxPlaying;
+    private boolean dontPlayIfJukeboxInRange(MusicManager instance, MusicInfo music) {
+        return ClientMain.noJukeboxesInRange();
     }
     *///?}
 }
