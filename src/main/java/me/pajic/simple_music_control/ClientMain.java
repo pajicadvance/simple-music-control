@@ -2,7 +2,9 @@ package me.pajic.simple_music_control;
 
 import me.pajic.simple_music_control.config.ModClientConfig;
 import me.pajic.simple_music_control.keybind.ModKeybinds;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
@@ -12,8 +14,10 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import net.neoforged.neoforge.common.NeoForge;
 //? if 1.21.4
 /*import net.minecraft.util.random.SimpleWeightedRandomList;*/
 //? if 1.21.5
@@ -55,6 +59,24 @@ public class ClientMain {
             Musics.createGameMusic(SoundEvents.MUSIC_BIOME_SOUL_SAND_VALLEY),
             Musics.createGameMusic(SoundEvents.MUSIC_BIOME_WARPED_FOREST)
     );
+
+    public static boolean jukeboxPlaying = false;
+    public static BlockPos jukeboxPos = null;
+
+    public static void onJukeboxPlay(Level level, Minecraft minecraft, BlockPos pos) {
+        if (ModClientConfig.stopMusicOnJukeboxUse && level != null) {
+            minecraft.getMusicManager().stopPlaying();
+            jukeboxPlaying = true;
+            jukeboxPos = pos;
+        }
+    }
+
+    public static void onJukeboxStop() {
+        if (ModClientConfig.stopMusicOnJukeboxUse) {
+            jukeboxPlaying = false;
+            jukeboxPos = null;
+        }
+    }
 
     //? if <= 1.21.1 {
     public static Optional<Music> pickRandomSituationalMusic(LocalPlayer player) {
@@ -107,8 +129,21 @@ public class ClientMain {
     }
     *///?}
 
+    public static void onClientTick(ClientTickEvent.Post event) {
+        Minecraft client = Minecraft.getInstance();
+        if (ModClientConfig.stopMusicOnJukeboxUse && client.player != null && jukeboxPos != null) {
+            if (client.player.distanceToSqr(jukeboxPos.getX(), jukeboxPos.getY(), jukeboxPos.getZ()) > 4096) {
+                jukeboxPlaying = false;
+            } else {
+                jukeboxPlaying = true;
+                client.getMusicManager().stopPlaying();
+            }
+        }
+    }
+
     public ClientMain(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(ModKeybinds::registerKeybinds);
+        NeoForge.EVENT_BUS.addListener(ClientMain::onClientTick);
         modContainer.registerConfig(ModConfig.Type.CLIENT, ModClientConfig.CLIENT_SPEC);
         modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }

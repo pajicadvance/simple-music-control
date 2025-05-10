@@ -7,8 +7,9 @@
     "MusicsMixin"
   ],
   "client": [
-    "JukeboxBlockMixin",
-    "MinecraftMixin"
+    "LevelRendererMixin",
+    "MinecraftMixin",
+    "MusicManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

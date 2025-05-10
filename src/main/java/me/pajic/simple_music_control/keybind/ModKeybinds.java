@@ -1,6 +1,7 @@
 package me.pajic.simple_music_control.keybind;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import me.pajic.simple_music_control.ClientMain;
 import me.pajic.simple_music_control.config.ModClientConfig;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -31,7 +32,7 @@ public class ModKeybinds {
     @SubscribeEvent
     public static void onClientTick(ClientTickEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
-        if (ModClientConfig.enableNextTrackKeybind && NEXT_MUSIC_TRACK.get().consumeClick() && mc.player != null) {
+        if (ModClientConfig.enableNextTrackKeybind && NEXT_MUSIC_TRACK.get().consumeClick() && !ClientMain.jukeboxPlaying && mc.player != null) {
             mc.getMusicManager().stopPlaying();
             mc.getMusicManager().startPlaying(mc.getSituationalMusic());
         }
