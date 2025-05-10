@@ -4,11 +4,12 @@
   "package": "me.pajic.simple_music_control.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "JukeboxBlockMixin",
     "MusicsMixin"
   ],
   "client": [
-    "MinecraftMixin"
+    "LevelRendererMixin",
+    "MinecraftMixin",
+    "MusicManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -3,7 +3,10 @@ package me.pajic.simple_music_control;
 import me.pajic.simple_music_control.config.ModConfig;
 import me.pajic.simple_music_control.keybind.ModKeybinds;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
@@ -48,6 +51,24 @@ public class ClientMain implements ClientModInitializer {
             Musics.createGameMusic(SoundEvents.MUSIC_BIOME_SOUL_SAND_VALLEY),
             Musics.createGameMusic(SoundEvents.MUSIC_BIOME_WARPED_FOREST)
     );
+
+    public static boolean jukeboxPlaying = false;
+    public static BlockPos jukeboxPos = null;
+
+    public static void onJukeboxPlay(Level level, Minecraft minecraft, BlockPos pos) {
+        if (ModConfig.stopMusicOnJukeboxUse && level != null) {
+            minecraft.getMusicManager().stopPlaying();
+            jukeboxPlaying = true;
+            jukeboxPos = pos;
+        }
+    }
+
+    public static void onJukeboxStop() {
+        if (ModConfig.stopMusicOnJukeboxUse) {
+            jukeboxPlaying = false;
+            jukeboxPos = null;
+        }
+    }
 
     //? if <= 1.21.1 {
     public static Optional<Music> pickRandomSituationalMusic(LocalPlayer player) {
@@ -103,5 +124,15 @@ public class ClientMain implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ModKeybinds.init();
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (ModConfig.stopMusicOnJukeboxUse && client.player != null && jukeboxPos != null) {
+                if (client.player.distanceToSqr(jukeboxPos.getX(), jukeboxPos.getY(), jukeboxPos.getZ()) > 4096) {
+                    jukeboxPlaying = false;
+                } else {
+                    jukeboxPlaying = true;
+                    client.getMusicManager().stopPlaying();
+                }
+            }
+        });
     }
 }
