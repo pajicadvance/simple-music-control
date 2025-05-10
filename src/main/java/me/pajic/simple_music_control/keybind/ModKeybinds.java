@@ -21,7 +21,7 @@ public class ModKeybinds {
 
     public static void init() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (ModConfig.enableNextTrackKeybind && NEXT_MUSIC_TRACK.consumeClick() && !ClientMain.jukeboxPlaying && client.player != null) {
+            if (ModConfig.enableNextTrackKeybind && NEXT_MUSIC_TRACK.consumeClick() && ClientMain.noJukeboxesInRange() && client.player != null) {
                 client.getMusicManager().stopPlaying();
                 client.getMusicManager().startPlaying(client.getSituationalMusic());
             }

@@ -28,6 +28,6 @@ public class LevelEventHandlerMixin {
     @WrapMethod(method = "stopJukeboxSong")
     private void onJukeboxStop(BlockPos pos, Operation<Void> original) {
         original.call(pos);
-        ClientMain.onJukeboxStop();
+        ClientMain.onJukeboxStop(pos);
     }
 }

@@ -1,9 +1,12 @@
 package me.pajic.simple_music_control;
 
+import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
+import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
 import me.pajic.simple_music_control.config.ModConfig;
 import me.pajic.simple_music_control.keybind.ModKeybinds;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientWorldEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -52,22 +55,23 @@ public class ClientMain implements ClientModInitializer {
             Musics.createGameMusic(SoundEvents.MUSIC_BIOME_WARPED_FOREST)
     );
 
-    public static boolean jukeboxPlaying = false;
-    public static BlockPos jukeboxPos = null;
+    public static Object2BooleanOpenHashMap<BlockPos> jukeboxes = new Object2BooleanOpenHashMap<>();
 
     public static void onJukeboxPlay(Level level, Minecraft minecraft, BlockPos pos) {
         if (ModConfig.stopMusicOnJukeboxUse && level != null) {
             minecraft.getMusicManager().stopPlaying();
-            jukeboxPlaying = true;
-            jukeboxPos = pos;
+            jukeboxes.put(pos, true);
         }
     }
 
-    public static void onJukeboxStop() {
+    public static void onJukeboxStop(BlockPos pos) {
         if (ModConfig.stopMusicOnJukeboxUse) {
-            jukeboxPlaying = false;
-            jukeboxPos = null;
+            jukeboxes.removeBoolean(pos);
         }
+    }
+
+    public static boolean noJukeboxesInRange() {
+        return jukeboxes.object2BooleanEntrySet().stream().noneMatch(Object2BooleanMap.Entry::getBooleanValue);
     }
 
     //? if <= 1.21.1 {
@@ -124,13 +128,17 @@ public class ClientMain implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ModKeybinds.init();
+        ClientWorldEvents.AFTER_CLIENT_WORLD_CHANGE.register((client, world) -> jukeboxes.clear());
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (ModConfig.stopMusicOnJukeboxUse && client.player != null && jukeboxPos != null) {
-                if (client.player.distanceToSqr(jukeboxPos.getX(), jukeboxPos.getY(), jukeboxPos.getZ()) > 4096) {
-                    jukeboxPlaying = false;
-                } else {
-                    jukeboxPlaying = true;
-                    client.getMusicManager().stopPlaying();
+            if (ModConfig.stopMusicOnJukeboxUse && client.player != null && !jukeboxes.isEmpty()) {
+                for (Object2BooleanMap.Entry<BlockPos> jukebox : jukeboxes.object2BooleanEntrySet()) {
+                    BlockPos pos = jukebox.getKey();
+                    if (client.player.distanceToSqr(pos.getX(), pos.getY(), pos.getZ()) > 4096) {
+                        jukeboxes.put(pos, false);
+                    } else {
+                        jukeboxes.put(pos, true);
+                        client.getMusicManager().stopPlaying();
+                    }
                 }
             }
         });
