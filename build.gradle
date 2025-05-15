@@ -24,6 +24,12 @@ subsystems {
     }
 }
 
+minecraft {
+    accessTransformers {
+        file('src/main/resources/META-INF/accesstransformer.cfg')
+    }
+}
+
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 runs {
