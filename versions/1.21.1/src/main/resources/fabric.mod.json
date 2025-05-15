@@ -23,6 +23,7 @@
   "mixins": [
     "simple_music_control.mixins.json"
   ],
+  "accessWidener": "simple_music_control.accesswidener",
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",

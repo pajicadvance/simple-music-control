@@ -1,8 +1,8 @@
 package me.pajic.simple_music_control.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import me.pajic.simple_music_control.ClientMain;
 import me.pajic.simple_music_control.config.ModConfig;
+import me.pajic.simple_music_control.util.ModUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.sounds.Music;
@@ -45,6 +45,18 @@ public class MinecraftMixin {
         return !ModConfig.unlockSituationalMusic && original;
     }
 
+    @ModifyExpressionValue(
+            method = "tick",
+            at = @At(
+                    value = "FIELD",
+                    target = "Lnet/minecraft/client/Minecraft;pause:Z",
+                    ordinal = 6
+            )
+    )
+    private boolean playMusicWhenPaused(boolean original) {
+        return !ModConfig.playMusicWhenPaused && original;
+    }
+
     //? if <= 1.21.1 {
     @ModifyExpressionValue(
             method = "getSituationalMusic",
@@ -54,7 +66,7 @@ public class MinecraftMixin {
             )
     )
     private Optional<Music> unlockSituationalMusicInSurvival(Optional<Music> original) {
-        return ClientMain.pickRandomSituationalMusic(player).or(() -> original);
+        return ModUtil.pickRandomSituationalMusic(player).or(() -> original);
     }
 
     @ModifyExpressionValue(
@@ -65,7 +77,7 @@ public class MinecraftMixin {
             )
     )
     private Music allowSituationalMusicInCreative(Music original) {
-        return ModConfig.situationalMusicInCreative ? ClientMain.pickRandomSituationalMusic(player).orElse(player.level().getBiome(player.blockPosition()).value().getBackgroundMusic().orElse(original)) : original;
+        return ModConfig.situationalMusicInCreative ? ModUtil.pickRandomSituationalMusic(player).orElse(player.level().getBiome(player.blockPosition()).value().getBackgroundMusic().orElse(original)) : original;
     }
     //?}
 
@@ -79,12 +91,12 @@ public class MinecraftMixin {
     )
     //? if 1.21.4 {
     /^private Optional<SimpleWeightedRandomList<Music>> unlockSituationalMusicInSurvival(Optional<SimpleWeightedRandomList<Music>> original) {
-        return ClientMain.pickRandomSituationalMusic(player).or(() -> original);
+        return ModUtil.pickRandomSituationalMusic(player).or(() -> original);
     }
     ^///?}
     //? if 1.21.5 {
     /^private Optional<WeightedList<Music>> unlockSituationalMusicInSurvival(Optional<WeightedList<Music>> original) {
-        return ClientMain.pickRandomSituationalMusic(player).or(() -> original);
+        return ModUtil.pickRandomSituationalMusic(player).or(() -> original);
     }
     ^///?}
 
@@ -96,7 +108,7 @@ public class MinecraftMixin {
             )
     )
     private Music allowSituationalMusicInCreative(Music original) {
-        return ModConfig.situationalMusicInCreative ? ClientMain.pickRandomSituationalMusic(player).orElse(player.level().getBiome(player.blockPosition()).value().getBackgroundMusic().orElse(
+        return ModConfig.situationalMusicInCreative ? ModUtil.pickRandomSituationalMusic(player).orElse(player.level().getBiome(player.blockPosition()).value().getBackgroundMusic().orElse(
                 //? if 1.21.4
                 /^SimpleWeightedRandomList.single(original))).getRandomValue^/
                 //? if 1.21.5

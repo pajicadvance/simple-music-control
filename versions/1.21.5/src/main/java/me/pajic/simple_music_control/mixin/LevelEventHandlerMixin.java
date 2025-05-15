@@ -2,7 +2,7 @@ package me.pajic.simple_music_control.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import me.pajic.simple_music_control.ClientMain;
+import me.pajic.simple_music_control.util.JukeboxTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelEventHandler;
 import net.minecraft.core.BlockPos;
@@ -22,12 +22,12 @@ public class LevelEventHandlerMixin {
     @WrapMethod(method = "playJukeboxSong")
     private void onJukeboxPlay(Holder<JukeboxSong> song, BlockPos pos, Operation<Void> original) {
         original.call(song, pos);
-        ClientMain.onJukeboxPlay(level, minecraft, pos);
+        JukeboxTracker.onJukeboxPlay(level, minecraft, pos);
     }
 
     @WrapMethod(method = "stopJukeboxSong")
     private void onJukeboxStop(BlockPos pos, Operation<Void> original) {
         original.call(pos);
-        ClientMain.onJukeboxStop(pos);
+        JukeboxTracker.onJukeboxStop(pos);
     }
 }

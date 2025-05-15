@@ -1,7 +1,7 @@
 package me.pajic.simple_music_control.mixin;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import me.pajic.simple_music_control.ClientMain;
+import me.pajic.simple_music_control.util.JukeboxTracker;
 import net.minecraft.client.sounds.MusicManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,7 +22,7 @@ public class MusicManagerMixin {
             )
     )
     private boolean dontPlayIfJukeboxInRange(MusicManager instance, Music music) {
-        return ClientMain.noJukeboxesInRange();
+        return JukeboxTracker.noJukeboxesInRange();
     }
     //?}
 
@@ -35,7 +35,7 @@ public class MusicManagerMixin {
             )
     )
     private boolean dontPlayIfJukeboxInRange(MusicManager instance, MusicInfo music) {
-        return ClientMain.noJukeboxesInRange();
+        return JukeboxTracker.noJukeboxesInRange();
     }
     *///?}
 }

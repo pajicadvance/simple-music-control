@@ -30,6 +30,10 @@ dependencies {
     modImplementation "dev.isxander:yet-another-config-lib:${property("yacl_version")}"
 }
 
+loom {
+    accessWidenerPath = file("src/main/resources/simple_music_control.accesswidener")
+}
+
 processResources {
     inputs.property "version", project.version
     inputs.property "minecraft_version", stonecutter.current.project
