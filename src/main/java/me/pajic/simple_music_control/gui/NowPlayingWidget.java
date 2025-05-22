@@ -2,7 +2,6 @@ package me.pajic.simple_music_control.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.pajic.simple_music_control.config.ModConfig;
-import me.pajic.simple_music_control.util.ModUtil;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -37,14 +36,13 @@ public class NowPlayingWidget {
         @Override
         public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
             if (ModConfig.nowPlayingWidget && soundInstance != null && timer > 0) {
-                if (ModUtil.SOUND_SYSTEM_FAILED) {
+                if (soundInstance.getSound() == null) {
                     guiGraphics.flush();
                     //? if < 1.21.5
                     RenderSystem.enableBlend();
                     //? if >= 1.21.5
                     /*GlStateManager._enableBlend();*/
-                    renderActionBarText(MC, Component.translatable("gui.simple_music_control.soundSystemFail1"), guiGraphics, 0, 0, 16777215);
-                    renderActionBarText(MC, Component.translatable("gui.simple_music_control.soundSystemFail1"), guiGraphics, 0, 12, 16777215);
+                    renderActionBarText(MC, Component.translatable("gui.simple_music_control.soundSystemFail"), guiGraphics, 0, 0, 16777215);
                     guiGraphics.flush();
                     //? if < 1.21.5
                     RenderSystem.disableBlend();
@@ -82,7 +80,7 @@ public class NowPlayingWidget {
     }
 
     public static void displayPauseScreenWidget(GuiGraphics guiGraphics) {
-        if (ModConfig.showNowPlayingWidgetInPauseMenu && soundInstance != null && !ModUtil.SOUND_SYSTEM_FAILED) {
+        if (ModConfig.showNowPlayingWidgetInPauseMenu && soundInstance != null && soundInstance.getSound() != null) {
             Component trackName = Component.translatable(soundInstance.getSound().getLocation().toShortLanguageKey().replace("/", "."));
             Component note = Component.literal("♫");
             switch (ModConfig.pauseWidgetPosition) {
