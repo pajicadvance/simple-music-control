@@ -27,9 +27,11 @@ public class ModClientConfig {
             .define("modifyMusicDelays", true);
     private static final ModConfigSpec.IntValue MUSIC_MIN_DELAY = BUILDER
             .translation("text.config.simple_music_control.option.musicMinDelay")
+            .gameRestart()
             .defineInRange("musicMinDelay", 300, 1, Integer.MAX_VALUE);
     private static final ModConfigSpec.IntValue MUSIC_MAX_DELAY = BUILDER
             .translation("text.config.simple_music_control.option.musicMaxDelay")
+            .gameRestart()
             .defineInRange("musicMaxDelay", 600, 1, Integer.MAX_VALUE);
     private static final ModConfigSpec.BooleanValue PLAY_MUSIC_WHEN_PAUSED = BUILDER
             .translation("text.config.simple_music_control.option.playMusicWhenPaused")
@@ -37,6 +39,9 @@ public class ModClientConfig {
     private static final ModConfigSpec.BooleanValue NOW_PLAYING_WIDGET = BUILDER
             .translation("text.config.simple_music_control.option.nowPlayingWidget")
             .define("nowPlayingWidget", true);
+    private static final ModConfigSpec.IntValue NOW_PLAYING_WIDGET_DURATION = BUILDER
+            .translation("text.config.simple_music_control.option.nowPlayingWidgetDuration")
+            .defineInRange("nowPlayingWidgetDuration", 6, 1, Integer.MAX_VALUE);
     private static final ModConfigSpec.BooleanValue SHOW_NOW_PLAYING_WIDGET_IN_PAUSE_MENU = BUILDER
             .translation("text.config.simple_music_control.option.showNowPlayingWidgetInPauseMenu")
             .define("showNowPlayingWidgetInPauseMenu", true);
@@ -61,6 +66,7 @@ public class ModClientConfig {
     public static int musicMaxDelay;
     public static boolean playMusicWhenPaused;
     public static boolean nowPlayingWidget;
+    public static int nowPlayingWidgetDuration;
     public static boolean showNowPlayingWidgetInPauseMenu;
     public static PauseMenuWidgetPosition pauseWidgetPosition;
     public static boolean unlockSituationalMusic;
@@ -87,6 +93,7 @@ public class ModClientConfig {
             musicMaxDelay = MUSIC_MAX_DELAY.get();
             playMusicWhenPaused = PLAY_MUSIC_WHEN_PAUSED.get();
             nowPlayingWidget = NOW_PLAYING_WIDGET.get();
+            nowPlayingWidgetDuration = NOW_PLAYING_WIDGET_DURATION.get();
             showNowPlayingWidgetInPauseMenu = SHOW_NOW_PLAYING_WIDGET_IN_PAUSE_MENU.get();
             pauseWidgetPosition = PAUSE_WIDGET_POSITION.get();
             unlockSituationalMusic = UNLOCK_SITUATIONAL_MUSIC.get();

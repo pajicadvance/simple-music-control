@@ -2,6 +2,7 @@ package me.pajic.simple_music_control.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.pajic.simple_music_control.config.ModClientConfig;
+import me.pajic.simple_music_control.util.ModUtil;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -13,47 +14,69 @@ import net.neoforged.neoforge.client.event.RenderGuiEvent;
 import net.minecraft.util.FastColor;
 //? if > 1.21.1
 /*import net.minecraft.util.ARGB;*/
+//? if >= 1.21.5
+/*import com.mojang.blaze3d.opengl.GlStateManager;*/
 
 public class NowPlayingWidget {
     private static final Minecraft MC = Minecraft.getInstance();
     private static SoundInstance soundInstance = null;
     private static float timer = 0;
 
-    public static void displayWidget(SoundInstance sound, float seconds) {
+    public static void displayWidget(SoundInstance sound) {
         soundInstance = sound;
-        timer = seconds * 20;
+        timer = ModClientConfig.nowPlayingWidgetDuration * 20;
     }
 
     @SubscribeEvent
     public static void renderNowPlayingWidget(RenderGuiEvent.Post event) {
         GuiGraphics guiGraphics = event.getGuiGraphics();
         DeltaTracker deltaTracker = event.getPartialTick();
-        if (soundInstance != null && timer > 0) {
-            Component trackName = Component.translatable(soundInstance.getSound().getLocation().toShortLanguageKey().replace("/", "."));
-            Component note = Component.literal("♫");
-            float f = timer - deltaTracker.getGameTimeDeltaPartialTick(false);
-            int i = (int) (f * 255.0F / 20.0F);
-            if (i > 255) i = 255;
-            if (i > 8) {
-                int textColor = /*? if <= 1.21.1 {*/FastColor.ARGB32/*?}*//*? if > 1.21.1 {*//*ARGB*//*?}*/.color(i, 16777215);
-                int noteColor = /*? if <= 1.21.1 {*/FastColor.ARGB32/*?}*//*? if > 1.21.1 {*//*ARGB*//*?}*/.color(i, MusicNoteColorManager.musicNoteColor);
+        if (ModClientConfig.nowPlayingWidget && soundInstance != null && timer > 0) {
+            if (ModUtil.SOUND_SYSTEM_FAILED) {
                 guiGraphics.flush();
                 //? if < 1.21.5
                 RenderSystem.enableBlend();
-                renderActionBarText(MC, trackName, guiGraphics, 0, textColor);
-                renderActionBarText(MC, note, guiGraphics, MC.font.width(trackName) / 2 + 7, noteColor);
-                renderActionBarText(MC, note, guiGraphics, -MC.font.width(trackName) / 2 - 7, noteColor);
+                //? if >= 1.21.5
+                /*GlStateManager._enableBlend();*/
+                renderActionBarText(MC, Component.translatable("gui.simple_music_control.soundSystemFail1"), guiGraphics, 0, 0, 16777215);
+                renderActionBarText(MC, Component.translatable("gui.simple_music_control.soundSystemFail1"), guiGraphics, 0, 12, 16777215);
                 guiGraphics.flush();
                 //? if < 1.21.5
                 RenderSystem.disableBlend();
+                //? if >= 1.21.5
+                /*GlStateManager._disableBlend();*/
             }
-            timer -= deltaTracker.getGameTimeDeltaTicks();
+            else {
+                Component trackName = Component.translatable(soundInstance.getSound().getLocation().toShortLanguageKey().replace("/", "."));
+                Component note = Component.literal("♫");
+                float f = timer - deltaTracker.getGameTimeDeltaPartialTick(false);
+                int i = (int) (f * 255.0F / 20.0F);
+                if (i > 255) i = 255;
+                if (i > 8) {
+                    int textColor = /*? if <= 1.21.1 {*/FastColor.ARGB32/*?}*//*? if > 1.21.1 {*//*ARGB*//*?}*/.color(i, 16777215);
+                    int noteColor = /*? if <= 1.21.1 {*/FastColor.ARGB32/*?}*//*? if > 1.21.1 {*//*ARGB*//*?}*/.color(i, MusicNoteColorManager.musicNoteColor);
+                    guiGraphics.flush();
+                    //? if < 1.21.5
+                    RenderSystem.enableBlend();
+                    //? if >= 1.21.5
+                    /*GlStateManager._enableBlend();*/
+                    renderActionBarText(MC, trackName, guiGraphics, 0, 0, textColor);
+                    renderActionBarText(MC, note, guiGraphics, MC.font.width(trackName) / 2 + 7, 0, noteColor);
+                    renderActionBarText(MC, note, guiGraphics, -MC.font.width(trackName) / 2 - 7, 0, noteColor);
+                    guiGraphics.flush();
+                    //? if < 1.21.5
+                    RenderSystem.disableBlend();
+                    //? if >= 1.21.5
+                    /*GlStateManager._disableBlend();*/
+                }
+                timer -= deltaTracker.getGameTimeDeltaTicks();
+                if (!MC.getSoundManager().isActive(soundInstance)) soundInstance = null;
+            }
         }
-        if (!MC.getSoundManager().isActive(soundInstance)) soundInstance = null;
     }
 
     public static void displayPauseScreenWidget(GuiGraphics guiGraphics) {
-        if (soundInstance != null) {
+        if (ModClientConfig.showNowPlayingWidgetInPauseMenu && soundInstance != null && !ModUtil.SOUND_SYSTEM_FAILED) {
             Component trackName = Component.translatable(soundInstance.getSound().getLocation().toShortLanguageKey().replace("/", "."));
             Component note = Component.literal("♫");
             switch (ModClientConfig.pauseWidgetPosition) {
@@ -78,11 +101,11 @@ public class NowPlayingWidget {
         }
     }
 
-    public static void renderActionBarText(Minecraft mc, Component text, GuiGraphics guiGraphics, int offset, int color) {
+    public static void renderActionBarText(Minecraft mc, Component text, GuiGraphics guiGraphics, int xOffset, int yOffset, int color) {
         guiGraphics.drawString(
                 mc.font, text,
-                mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(text) / 2 + offset,
-                mc.getWindow().getGuiScaledHeight() / 2 + 48,
+                mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(text) / 2 + xOffset,
+                mc.getWindow().getGuiScaledHeight() - 96 + yOffset,
                 color
         );
     }
