@@ -13,7 +13,6 @@ import net.minecraft.world.level.Level;
 import java.util.Optional;
 
 public class ModUtil {
-    public static boolean SOUND_SYSTEM_FAILED = false;
 
     //? if <= 1.21.1 {
     public static Optional<Music> pickRandomSituationalMusic(LocalPlayer player) {

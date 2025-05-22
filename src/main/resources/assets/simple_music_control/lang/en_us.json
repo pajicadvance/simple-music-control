@@ -19,8 +19,7 @@
   "text.config.simple_music_control.option.showNowPlayingWidgetInPauseMenu": "Show pause menu Now Playing widget",
   "text.config.simple_music_control.option.pauseWidgetPosition": "Pause menu widget position",
 
-  "gui.simple_music_control.soundSystemFail1": "Cannot get track info as SoundSystem failed to initialize.",
-  "gui.simple_music_control.soundSystemFail2": "This indicates a problem with your system audio drivers or configuration.",
+  "gui.simple_music_control.soundSystemFail": "Unable to get track information.",
 
   "category.simple_music_control.keybindings": "Simple Music Control",
   "key.simple_music_control.next_music_track": "Next music track",
