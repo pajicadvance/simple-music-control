@@ -32,6 +32,7 @@ public class ModConfig {
     @SerialEntry public static int musicMaxDelay = 600;
     @SerialEntry public static boolean playMusicWhenPaused = true;
     @SerialEntry public static boolean nowPlayingWidget = true;
+    @SerialEntry public static int nowPlayingWidgetDuration = 6;
     @SerialEntry public static boolean showNowPlayingWidgetInPauseMenu = true;
     @SerialEntry public static PauseMenuWidgetPosition pauseWidgetPosition = PauseMenuWidgetPosition.TOP_LEFT;
     @SerialEntry public static boolean unlockSituationalMusic = false;
@@ -97,6 +98,12 @@ public class ModConfig {
                                 .description(OptionDescription.of(Component.translatable("text.config.simple_music_control.option.nowPlayingWidget")))
                                 .binding(nowPlayingWidget, () -> nowPlayingWidget, newValue -> nowPlayingWidget = newValue)
                                 .controller(TickBoxControllerBuilder::create)
+                                .build())
+                        .option(Option.<Integer>createBuilder()
+                                .name(Component.translatable("text.config.simple_music_control.option.nowPlayingWidgetDuration"))
+                                .description(OptionDescription.of(Component.translatable("text.config.simple_music_control.option.nowPlayingWidgetDuration")))
+                                .binding(nowPlayingWidgetDuration, () -> nowPlayingWidgetDuration, newValue -> nowPlayingWidgetDuration = newValue)
+                                .controller(opt -> IntegerFieldControllerBuilder.create(opt).range(1, Integer.MAX_VALUE))
                                 .build())
                         .option(Option.<Boolean>createBuilder()
                                 .name(Component.translatable("text.config.simple_music_control.option.showNowPlayingWidgetInPauseMenu"))

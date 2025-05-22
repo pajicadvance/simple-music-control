@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.mojang.blaze3d.audio.Channel;
 import me.pajic.simple_music_control.config.ModConfig;
 import me.pajic.simple_music_control.gui.NowPlayingWidget;
+import me.pajic.simple_music_control.util.ModUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.ChannelAccess;
@@ -13,6 +14,9 @@ import net.minecraft.sounds.SoundSource;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
 
@@ -38,8 +42,20 @@ public class SoundEngineMixin {
     private void showWidgetOnMusicPlay(SoundInstance soundInstance, Operation<Void> original) {
         original.call(soundInstance);
         Minecraft mc = Minecraft.getInstance();
-        if (ModConfig.nowPlayingWidget && mc.player != null && soundInstance.getSource().equals(SoundSource.MUSIC)) {
-            NowPlayingWidget.displayWidget(soundInstance, 5);
+        if ((ModConfig.nowPlayingWidget || ModConfig.showNowPlayingWidgetInPauseMenu) && mc.player != null && soundInstance.getSource().equals(SoundSource.MUSIC)) {
+            NowPlayingWidget.displayWidget(soundInstance);
         }
+    }
+
+    @Inject(
+            method = "loadLibrary",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lorg/slf4j/Logger;error(Lorg/slf4j/Marker;Ljava/lang/String;Ljava/lang/Throwable;)V"
+            ),
+            remap = false
+    )
+    private void flagSoundSystemFail(CallbackInfo ci) {
+        ModUtil.SOUND_SYSTEM_FAILED = true;
     }
 }
