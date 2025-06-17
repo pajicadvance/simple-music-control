@@ -1,14 +1,18 @@
 package me.pajic.simple_music_control.util;
 
 import me.pajic.simple_music_control.config.ModConfig;
+import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.world.level.Level;
 //? if 1.21.4
 /*import net.minecraft.util.random.SimpleWeightedRandomList;*/
-//? if 1.21.5
-/*import net.minecraft.util.random.WeightedList;*/
+//? if >= 1.21.5 {
+/*import net.minecraft.util.random.WeightedList;
+import com.mojang.blaze3d.opengl.GlStateManager;
+*///?}
 
 import java.util.Optional;
 
@@ -48,7 +52,7 @@ public class ModUtil {
     }
     *///?}
 
-    //? if 1.21.5 {
+    //? if >= 1.21.5 {
     /*public static Optional<WeightedList<Music>> pickRandomSituationalMusic(LocalPlayer player) {
         if (ModConfig.unlockSituationalMusic) {
             if (player.level().random.nextFloat() < (float) ModConfig.situationalMusicChance / 100) {
@@ -64,4 +68,24 @@ public class ModUtil {
         return Optional.empty();
     }
     *///?}
+
+    public static void startRender(GuiGraphics guiGraphics) {
+        //? if < 1.21.6
+        guiGraphics.flush();
+        //? if >= 1.21.6
+        /*guiGraphics.nextStratum();*/
+        //? if < 1.21.5
+        RenderSystem.enableBlend();
+        //? if >= 1.21.5
+        /*GlStateManager._enableBlend();*/
+    }
+
+    public static void stopRender(GuiGraphics guiGraphics) {
+        //? if < 1.21.6
+        guiGraphics.flush();
+        //? if < 1.21.5
+        RenderSystem.disableBlend();
+        //? if >= 1.21.5
+        /*GlStateManager._disableBlend();*/
+    }
 }

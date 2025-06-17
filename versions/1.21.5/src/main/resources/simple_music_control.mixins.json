@@ -7,6 +7,7 @@
     "MusicsMixin"
   ],
   "client": [
+    "GuiMixin",
     "LevelEventHandlerMixin",
     "MinecraftMixin",
     "MusicManagerMixin",

@@ -22,6 +22,7 @@ public class SoundEngineMixin {
     @Shadow private boolean loaded;
     @Shadow @Final private Map<SoundInstance, ChannelAccess.ChannelHandle> instanceToChannel;
 
+    //? if <= 1.21.5 {
     @WrapMethod(method = "pause")
     private void pauseAllExceptMusic(Operation<Void> original) {
         if (ModConfig.playMusicWhenPaused && loaded) {
@@ -33,8 +34,20 @@ public class SoundEngineMixin {
         }
         else original.call();
     }
+    //?}
+
+    //? if > 1.21.5 {
+    /*@WrapMethod(method = "pauseAllExcept")
+    private void pauseAll(SoundSource[] soundSources, Operation<Void> original) {
+        if (!ModConfig.playMusicWhenPaused && loaded) {
+            instanceToChannel.forEach((instance, channel) -> channel.execute(Channel::pause));
+        }
+        else original.call((Object) soundSources);
+    }
+    *///?}
 
     @WrapMethod(method = "play")
+    //? if < 1.21.6 {
     private void showWidgetOnMusicPlay(SoundInstance soundInstance, Operation<Void> original) {
         original.call(soundInstance);
         Minecraft mc = Minecraft.getInstance();
@@ -42,4 +55,14 @@ public class SoundEngineMixin {
             NowPlayingWidget.displayWidget(soundInstance);
         }
     }
+    //?}
+    //? if >= 1.21.6 {
+    /*private SoundEngine.PlayResult showWidgetOnMusicPlay(SoundInstance soundInstance, Operation<SoundEngine.PlayResult> original) {
+        Minecraft mc = Minecraft.getInstance();
+        if ((ModConfig.nowPlayingWidget || ModConfig.showNowPlayingWidgetInPauseMenu) && mc.player != null && soundInstance.getSource().equals(SoundSource.MUSIC)) {
+            NowPlayingWidget.displayWidget(soundInstance);
+        }
+        return original.call(soundInstance);
+    }
+    *///?}
 }

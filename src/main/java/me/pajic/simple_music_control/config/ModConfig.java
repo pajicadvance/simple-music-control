@@ -95,7 +95,10 @@ public class ModConfig {
                                 .build())
                         .option(Option.<Boolean>createBuilder()
                                 .name(Component.translatable("text.config.simple_music_control.option.nowPlayingWidget"))
+                                //? if < 1.21.6
                                 .description(OptionDescription.of(Component.translatable("text.config.simple_music_control.option.nowPlayingWidget")))
+                                //? if >= 1.21.6
+                                /*.description(OptionDescription.of(Component.translatable("text.config.simple_music_control.option.nowPlayingWidget.tooltip")))*/
                                 .binding(nowPlayingWidget, () -> nowPlayingWidget, newValue -> nowPlayingWidget = newValue)
                                 .controller(TickBoxControllerBuilder::create)
                                 .build())
@@ -107,7 +110,10 @@ public class ModConfig {
                                 .build())
                         .option(Option.<Boolean>createBuilder()
                                 .name(Component.translatable("text.config.simple_music_control.option.showNowPlayingWidgetInPauseMenu"))
+                                //? if < 1.21.6
                                 .description(OptionDescription.of(Component.translatable("text.config.simple_music_control.option.showNowPlayingWidgetInPauseMenu")))
+                                //? if >= 1.21.6
+                                /*.description(OptionDescription.of(Component.translatable("text.config.simple_music_control.option.showNowPlayingWidgetInPauseMenu.tooltip")))*/
                                 .binding(showNowPlayingWidgetInPauseMenu, () -> showNowPlayingWidgetInPauseMenu, newValue -> showNowPlayingWidgetInPauseMenu = newValue)
                                 .controller(TickBoxControllerBuilder::create)
                                 .build())

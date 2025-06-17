@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 //? if 1.21.4
 /*import net.minecraft.util.random.SimpleWeightedRandomList;*/
-//? if 1.21.5
+//? if >= 1.21.5
 /*import net.minecraft.util.random.WeightedList;*/
 
 import java.util.Optional;
@@ -94,7 +94,7 @@ public class MinecraftMixin {
         return ModUtil.pickRandomSituationalMusic(player).or(() -> original);
     }
     ^///?}
-    //? if 1.21.5 {
+    //? if >= 1.21.5 {
     /^private Optional<WeightedList<Music>> unlockSituationalMusicInSurvival(Optional<WeightedList<Music>> original) {
         return ModUtil.pickRandomSituationalMusic(player).or(() -> original);
     }
@@ -111,7 +111,7 @@ public class MinecraftMixin {
         return ModConfig.situationalMusicInCreative ? ModUtil.pickRandomSituationalMusic(player).orElse(player.level().getBiome(player.blockPosition()).value().getBackgroundMusic().orElse(
                 //? if 1.21.4
                 /^SimpleWeightedRandomList.single(original))).getRandomValue^/
-                //? if 1.21.5
+                //? if >= 1.21.5
                 /^WeightedList.of(original))).getRandom^/
         (player.level().random).orElse(original) : original;
     }
