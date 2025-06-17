@@ -2,6 +2,7 @@ package me.pajic.simple_music_control.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import me.pajic.simple_music_control.config.ModClientConfig;
 import me.pajic.simple_music_control.gui.NowPlayingWidget;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.PauseScreen;
@@ -15,4 +16,12 @@ public class PauseScreenMixin {
         original.call(guiGraphics, mouseX, mouseY, partialTick);
         NowPlayingWidget.displayPauseScreenWidget(guiGraphics);
     }
+
+    //? if > 1.21.5 {
+    /*@WrapMethod(method = "rendersNowPlayingToast")
+    private boolean dontRenderIfModWidgetEnabled(Operation<Boolean> original) {
+        if (!ModClientConfig.showNowPlayingWidgetInPauseMenu) return original.call();
+        return false;
+    }
+    *///?}
 }

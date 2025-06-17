@@ -18,6 +18,8 @@
   "text.config.simple_music_control.option.nowPlayingWidgetDuration": "On-screen widget duration",
   "text.config.simple_music_control.option.showNowPlayingWidgetInPauseMenu": "Show pause menu Now Playing widget",
   "text.config.simple_music_control.option.pauseWidgetPosition": "Pause menu widget position",
+  "text.config.simple_music_control.option.nowPlayingWidget.tooltip": "This option disables the vanilla Now Playing toast popup.",
+  "text.config.simple_music_control.option.showNowPlayingWidgetInPauseMenu.tooltip": "This option disables the vanilla Now Playing persistent toast in the pause menu.",
 
   "gui.simple_music_control.soundSystemFail": "Unable to get track information.",
 

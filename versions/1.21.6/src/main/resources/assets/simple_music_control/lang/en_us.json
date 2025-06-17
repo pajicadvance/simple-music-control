@@ -1,0 +1,28 @@
+{
+  "text.config.simple_music_control.title": "Simple Music Control Config",
+  "text.config.simple_music_control.option.enableNextTrackKeybind": "Enable next track keybind",
+  "text.config.simple_music_control.option.stopMusicOnJukeboxUse": "Stop music when playing jukebox",
+  "text.config.simple_music_control.option.creativeMusicInSurvival": "Creative music in survival",
+  "text.config.simple_music_control.option.situationalMusicInCreative": "Situational music in creative",
+  "text.config.simple_music_control.option.unlockSituationalMusic": "Unlock situational music",
+  "text.config.simple_music_control.option.unlockSituationalMusic.tooltip": "Gives situational music tracks a chance to play anywhere instead of only specific situations.",
+  "text.config.simple_music_control.option.situationalMusicChance": "Unlocked situational music chance (%)",
+  "text.config.simple_music_control.option.situationalMusicChance.tooltip": "Chance for situational music events to play instead of default music events.\n\nNote: A situational music event doesn't guarantee that a situational track is going to be played. Try a value higher than the default 70% if you feel like situational music doesn't play often enough.",
+  "text.config.simple_music_control.option.modifyMusicDelays": "Modify music delays",
+  "text.config.simple_music_control.option.musicMinDelay": "Minimum delay (seconds)",
+  "text.config.simple_music_control.option.musicMaxDelay": "Maximum delay (seconds)",
+  "text.config.simple_music_control.option.musicMinDelay.tooltip": "Vanilla default value is 600 seconds.",
+  "text.config.simple_music_control.option.musicMaxDelay.tooltip": "Vanilla default value is 1200 seconds.",
+  "text.config.simple_music_control.option.playMusicWhenPaused": "Continue playing music when paused",
+  "text.config.simple_music_control.option.nowPlayingWidget": "Show on-screen Now Playing widget",
+  "text.config.simple_music_control.option.nowPlayingWidgetDuration": "On-screen widget duration",
+  "text.config.simple_music_control.option.showNowPlayingWidgetInPauseMenu": "Show pause menu Now Playing widget",
+  "text.config.simple_music_control.option.pauseWidgetPosition": "Pause menu widget position",
+  "text.config.simple_music_control.option.nowPlayingWidget.tooltip": "This option disables the vanilla Now Playing toast popup.",
+  "text.config.simple_music_control.option.showNowPlayingWidgetInPauseMenu.tooltip": "This option disables the vanilla Now Playing persistent toast in the pause menu.",
+
+  "gui.simple_music_control.soundSystemFail": "Unable to get track information.",
+
+  "category.simple_music_control.keybindings": "Simple Music Control",
+  "key.simple_music_control.next_music_track": "Next music track"
+}
