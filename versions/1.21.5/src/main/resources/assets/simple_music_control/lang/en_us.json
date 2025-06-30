@@ -1,6 +1,5 @@
 {
   "text.config.simple_music_control.title": "Simple Music Control Config",
-  "text.config.simple_music_control.option.enableNextTrackKeybind": "Enable next track keybind",
   "text.config.simple_music_control.option.stopMusicOnJukeboxUse": "Stop music when playing jukebox",
   "text.config.simple_music_control.option.creativeMusicInSurvival": "Creative music in survival",
   "text.config.simple_music_control.option.situationalMusicInCreative": "Situational music in creative",
@@ -26,9 +25,12 @@
   "text.config.simple_music_control.option.pauseWidgetPosition.bottom_right": "Bottom right",
 
   "gui.simple_music_control.soundSystemFail": "Unable to get track information.",
+  "gui.simple_music_control.resume": "Background music resumed.",
+  "gui.simple_music_control.pause": "Background music paused.",
 
   "category.simple_music_control.keybindings": "Simple Music Control",
   "key.simple_music_control.next_music_track": "Next music track",
+  "key.simple_music_control.toggle_music": "Pause/play music",
 
   "music.game.a_familiar_room": "Aaron Cherof - A Familiar Room",
   "music.game.an_ordinary_day": "Kumi Tanioka - An Ordinary Day",

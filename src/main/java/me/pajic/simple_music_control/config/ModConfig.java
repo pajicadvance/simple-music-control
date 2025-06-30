@@ -23,7 +23,6 @@ public class ModConfig {
                     .build()
             ).build();
 
-    @SerialEntry public static boolean enableNextTrackKeybind = true;
     @SerialEntry public static boolean stopMusicOnJukeboxUse = true;
     @SerialEntry public static boolean creativeMusicInSurvival = true;
     @SerialEntry public static boolean situationalMusicInCreative = true;
@@ -43,12 +42,6 @@ public class ModConfig {
                 .title(Component.translatable("text.config.simple_music_control.title"))
                 .category(ConfigCategory.createBuilder()
                         .name(Component.translatable("text.config.simple_music_control.title"))
-                        .option(Option.<Boolean>createBuilder()
-                                .name(Component.translatable("text.config.simple_music_control.option.enableNextTrackKeybind"))
-                                .description(OptionDescription.of(Component.translatable("text.config.simple_music_control.option.enableNextTrackKeybind")))
-                                .binding(enableNextTrackKeybind, () -> enableNextTrackKeybind, newValue -> enableNextTrackKeybind = newValue)
-                                .controller(TickBoxControllerBuilder::create)
-                                .build())
                         .option(Option.<Boolean>createBuilder()
                                 .name(Component.translatable("text.config.simple_music_control.option.stopMusicOnJukeboxUse"))
                                 .description(OptionDescription.of(Component.translatable("text.config.simple_music_control.option.stopMusicOnJukeboxUse")))

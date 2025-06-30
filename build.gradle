@@ -1,6 +1,6 @@
 plugins {
     id 'fabric-loom' version '1.10-SNAPSHOT'
-    id 'maven-publish'
+    id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
 
 version = project.mod_version + "+" + stonecutter.current.version
@@ -9,7 +9,6 @@ group = project.maven_group
 base {
     archivesName = project.archives_base_name
 }
-
 
 repositories {
     maven { url = "https://maven.parchmentmc.org" }
@@ -70,5 +69,39 @@ java {
 jar {
     from("LICENSE") {
         rename { "${it}_${project.archivesBaseName}" }
+    }
+}
+
+publishMods {
+    file = remapJar.archiveFile
+    changelog = file(getRootDir().path + "/CHANGELOG.md").text
+    type = STABLE
+    modLoaders.add("fabric")
+    displayName = project.mod_version + " for Fabric " + stonecutter.current.version
+
+    modrinth {
+        accessToken = providers.environmentVariable("MR_KEY")
+        projectId = "8AX2hHnX"
+        minecraftVersions.add(stonecutter.current.version)
+        if (stonecutter.eval(stonecutter.current.version, "1.21.6")) {
+            minecraftVersions.add("1.21.7")
+        }
+        requires("fabric-api", "yacl")
+        optional("modmenu")
+    }
+
+    curseforge {
+        accessToken = providers.environmentVariable("CF_KEY")
+        projectId = "1185599"
+        minecraftVersions.add(stonecutter.current.version)
+        if (stonecutter.eval(stonecutter.current.version, "1.21.6")) {
+            minecraftVersions.add("1.21.7")
+        }
+        javaVersions.add(stonecutter.eval(stonecutter.current.version, ">=1.20.5")
+                ? JavaVersion.VERSION_21 : JavaVersion.VERSION_17)
+        clientRequired = true
+        serverRequired = false
+        requires("fabric-api", "yacl")
+        optional("modmenu")
     }
 }

@@ -17,6 +17,7 @@ import com.mojang.blaze3d.opengl.GlStateManager;
 import java.util.Optional;
 
 public class ModUtil {
+    public static boolean globalPause = false;
 
     //? if <= 1.21.1 {
     public static Optional<Music> pickRandomSituationalMusic(LocalPlayer player) {
