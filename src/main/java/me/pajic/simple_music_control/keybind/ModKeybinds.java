@@ -1,9 +1,11 @@
 package me.pajic.simple_music_control.keybind;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import me.pajic.simple_music_control.config.ModClientConfig;
+import me.pajic.simple_music_control.gui.NowPlayingWidget;
 import me.pajic.simple_music_control.util.JukeboxTracker;
+import me.pajic.simple_music_control.util.ModUtil;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -25,16 +27,40 @@ public class ModKeybinds {
             )
     );
 
+    public static final Lazy<KeyMapping> TOGGLE_MUSIC = Lazy.of(() ->
+            new KeyMapping(
+                    "key.simple_music_control.toggle_music",
+                    InputConstants.Type.KEYSYM,
+                    GLFW.GLFW_KEY_UNKNOWN,
+                    "category.simple_music_control.keybindings"
+            )
+    );
+
     public static void registerKeybinds(RegisterKeyMappingsEvent event) {
         event.register(NEXT_MUSIC_TRACK.get());
+        event.register(TOGGLE_MUSIC.get());
     }
 
     @SubscribeEvent
     public static void onClientTick(ClientTickEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
-        if (ModClientConfig.enableNextTrackKeybind && NEXT_MUSIC_TRACK.get().consumeClick() && JukeboxTracker.noJukeboxesInRange() && mc.player != null) {
+        if (NEXT_MUSIC_TRACK.get().consumeClick() && JukeboxTracker.noJukeboxesInRange() && mc.player != null) {
             mc.getMusicManager().stopPlaying();
             mc.getMusicManager().startPlaying(mc.getSituationalMusic());
+        }
+        if (TOGGLE_MUSIC.get().consumeClick()) {
+            if (ModUtil.globalPause) {
+                ModUtil.globalPause = false;
+                mc.getSoundManager().resume();
+            } else {
+                ModUtil.globalPause = true;
+                mc.getSoundManager()
+                        //? if < 1.21.6
+                        .pause();
+                //? if >= 1.21.6
+                /*.pauseAllExcept(SoundSource.MUSIC);*/
+            }
+            NowPlayingWidget.displayWidget();
         }
     }
 }

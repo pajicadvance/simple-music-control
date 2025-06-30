@@ -1,7 +1,6 @@
 package me.pajic.simple_music_control;
 
 import me.pajic.simple_music_control.config.ModClientConfig;
-import me.pajic.simple_music_control.gui.NowPlayingWidget;
 import me.pajic.simple_music_control.keybind.ModKeybinds;
 import me.pajic.simple_music_control.util.JukeboxTracker;
 import net.neoforged.api.distmarker.Dist;
@@ -19,7 +18,6 @@ public class ClientMain {
         modEventBus.addListener(ModKeybinds::registerKeybinds);
         NeoForge.EVENT_BUS.addListener(JukeboxTracker::onClientTick);
         NeoForge.EVENT_BUS.addListener(JukeboxTracker::onLevelUnload);
-        NeoForge.EVENT_BUS.addListener(NowPlayingWidget::renderNowPlayingWidget);
         modContainer.registerConfig(ModConfig.Type.CLIENT, ModClientConfig.CLIENT_SPEC);
         modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }

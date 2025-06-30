@@ -10,9 +10,6 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 public class ModClientConfig {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    private static final ModConfigSpec.BooleanValue ENABLE_NEXT_TRACK_KEYBIND = BUILDER
-            .translation("text.config.simple_music_control.option.enableNextTrackKeybind")
-            .define("enableNextTrackKeybind", true);
     private static final ModConfigSpec.BooleanValue STOP_MUSIC_ON_JUKEBOX_USE = BUILDER
             .translation("text.config.simple_music_control.option.stopMusicOnJukeboxUse")
             .define("stopMusicOnJukeboxUse", true);
@@ -57,7 +54,6 @@ public class ModClientConfig {
 
     public static final ModConfigSpec CLIENT_SPEC = BUILDER.build();
 
-    public static boolean enableNextTrackKeybind;
     public static boolean stopMusicOnJukeboxUse;
     public static boolean creativeMusicInSurvival;
     public static boolean situationalMusicInCreative;
@@ -84,7 +80,6 @@ public class ModClientConfig {
 
     private static void updateConfig(ModConfigEvent event) {
         if (event.getConfig().getSpec() == CLIENT_SPEC) {
-            enableNextTrackKeybind = ENABLE_NEXT_TRACK_KEYBIND.get();
             stopMusicOnJukeboxUse = STOP_MUSIC_ON_JUKEBOX_USE.get();
             creativeMusicInSurvival = CREATIVE_MUSIC_IN_SURVIVAL.get();
             situationalMusicInCreative = SITUATIONAL_MUSIC_IN_CREATIVE.get();

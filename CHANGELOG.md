@@ -1,0 +1,5 @@
+- The Now Playing widget will now momentarily show up in menus when a new track starts, to match the behavior of the vanilla Now Playing toast
+- Added an optional keybind to pause/play music, unbound by default
+- Fixed Now Playing widget being shown when music volume is set to 0
+- Removed the "Enable next track keybind" option from the mod config as it's unnecessary. To disable the keybind, just unbind it in the Controls menu
+- Flagged 1.21.6 version as compatible with 1.21.7

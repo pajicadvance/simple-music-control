@@ -5,7 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.mojang.blaze3d.audio.Channel;
 import me.pajic.simple_music_control.config.ModClientConfig;
 import me.pajic.simple_music_control.gui.NowPlayingWidget;
-import net.minecraft.client.Minecraft;
+import me.pajic.simple_music_control.util.ModUtil;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.ChannelAccess;
 import net.minecraft.client.sounds.SoundEngine;
@@ -25,7 +25,7 @@ public class SoundEngineMixin {
     //? if <= 1.21.5 {
     @WrapMethod(method = "pause")
     private void pauseAllExceptMusic(Operation<Void> original) {
-        if (ModClientConfig.playMusicWhenPaused && loaded) {
+        if (ModClientConfig.playMusicWhenPaused && loaded && !ModUtil.globalPause) {
             for (Map.Entry<SoundInstance, ChannelAccess.ChannelHandle> entry : instanceToChannel.entrySet()) {
                 if (!entry.getKey().getSource().equals(SoundSource.MUSIC)) {
                     entry.getValue().execute(Channel::pause);
@@ -39,7 +39,7 @@ public class SoundEngineMixin {
     //? if > 1.21.5 {
     /*@WrapMethod(method = "pauseAllExcept")
     private void pauseAll(SoundSource[] soundSources, Operation<Void> original) {
-        if (!ModClientConfig.playMusicWhenPaused && loaded) {
+        if (ModUtil.globalPause || (!ModClientConfig.playMusicWhenPaused && loaded)) {
             instanceToChannel.forEach((instance, channel) -> channel.execute(Channel::pause));
         }
         else original.call((Object) soundSources);
@@ -49,18 +49,23 @@ public class SoundEngineMixin {
     @WrapMethod(method = "play")
     //? if < 1.21.6 {
     private void showWidgetOnMusicPlay(SoundInstance soundInstance, Operation<Void> original) {
-        original.call(soundInstance);
-        Minecraft mc = Minecraft.getInstance();
-        if ((ModClientConfig.nowPlayingWidget || ModClientConfig.showNowPlayingWidgetInPauseMenu) && mc.player != null && soundInstance.getSource().equals(SoundSource.MUSIC)) {
-            NowPlayingWidget.displayWidget(soundInstance);
+        if (soundInstance.getSource().equals(SoundSource.MUSIC)) {
+            if (!ModUtil.globalPause) {
+                original.call(soundInstance);
+                if (ModClientConfig.nowPlayingWidget) NowPlayingWidget.displayWidget(soundInstance);
+            }
         }
+        else original.call(soundInstance);
     }
     //?}
     //? if >= 1.21.6 {
     /*private SoundEngine.PlayResult showWidgetOnMusicPlay(SoundInstance soundInstance, Operation<SoundEngine.PlayResult> original) {
-        Minecraft mc = Minecraft.getInstance();
-        if ((ModClientConfig.nowPlayingWidget || ModClientConfig.showNowPlayingWidgetInPauseMenu) && mc.player != null && soundInstance.getSource().equals(SoundSource.MUSIC)) {
-            NowPlayingWidget.displayWidget(soundInstance);
+        if (soundInstance.getSource().equals(SoundSource.MUSIC)) {
+            if (!ModUtil.globalPause) {
+                if (ModClientConfig.nowPlayingWidget) NowPlayingWidget.displayWidget(soundInstance);
+                return original.call(soundInstance);
+            }
+            return SoundEngine.PlayResult.NOT_STARTED;
         }
         return original.call(soundInstance);
     }
