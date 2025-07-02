@@ -52,7 +52,7 @@ public class SoundEngineMixin {
         if (soundInstance.getSource().equals(SoundSource.MUSIC)) {
             if (!ModUtil.globalPause) {
                 original.call(soundInstance);
-                if (ModClientConfig.nowPlayingWidget) NowPlayingWidget.displayWidget(soundInstance);
+                if (ModClientConfig.nowPlayingWidget || ModClientConfig.showNowPlayingWidgetInPauseMenu) NowPlayingWidget.displayWidget(soundInstance);
             }
         }
         else original.call(soundInstance);
@@ -62,7 +62,7 @@ public class SoundEngineMixin {
     /*private SoundEngine.PlayResult showWidgetOnMusicPlay(SoundInstance soundInstance, Operation<SoundEngine.PlayResult> original) {
         if (soundInstance.getSource().equals(SoundSource.MUSIC)) {
             if (!ModUtil.globalPause) {
-                if (ModClientConfig.nowPlayingWidget) NowPlayingWidget.displayWidget(soundInstance);
+                if (ModClientConfig.nowPlayingWidget || ModClientConfig.showNowPlayingWidgetInPauseMenu) NowPlayingWidget.displayWidget(soundInstance);
                 return original.call(soundInstance);
             }
             return SoundEngine.PlayResult.NOT_STARTED;
