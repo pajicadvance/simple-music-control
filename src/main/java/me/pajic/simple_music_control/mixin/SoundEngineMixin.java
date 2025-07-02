@@ -67,8 +67,9 @@ public class SoundEngineMixin {
     /*private SoundEngine.PlayResult showWidgetOnMusicPlay(SoundInstance soundInstance, Operation<SoundEngine.PlayResult> original) {
         if (soundInstance.getSource().equals(SoundSource.MUSIC)) {
             if (!ModUtil.globalPause) {
+                SoundEngine.PlayResult result = original.call(soundInstance);
                 if (ModConfig.nowPlayingWidget || ModConfig.showNowPlayingWidgetInPauseMenu) NowPlayingWidget.displayWidget(soundInstance);
-                return original.call(soundInstance);
+                return result;
             }
             return SoundEngine.PlayResult.NOT_STARTED;
         }

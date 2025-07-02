@@ -25,6 +25,7 @@
   "text.config.simple_music_control.option.pauseWidgetPosition.bottom_right": "Bottom right",
 
   "gui.simple_music_control.soundSystemFail": "Unable to get track information.",
+  "gui.simple_music_control.epic_fail": "Sound was null somehow? Report this to the mod author!",
   "gui.simple_music_control.resume": "Background music resumed.",
   "gui.simple_music_control.pause": "Background music paused.",
 
