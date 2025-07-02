@@ -51,6 +51,8 @@ public class NowPlayingWidget {
             soundInstance = sound;
             if (soundInstance != null && soundInstance.getSound() != null) {
                 trackName = Component.translatable(soundInstance.getSound().getLocation().toShortLanguageKey().replace("/", "."));
+            } else {
+                trackName = Component.translatable("gui.simple_music_control.epic_fail");
             }
             centered = MC.screen == null;
             timer = ModClientConfig.nowPlayingWidgetDuration * 20;
