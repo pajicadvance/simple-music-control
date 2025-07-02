@@ -33,7 +33,6 @@ public class NowPlayingWidget {
                 renderConditionalText(guiGraphics, Component.translatable("gui.simple_music_control.soundSystemFail"), Color.WHITE.getRGB());
             }
             else {
-                trackName = Component.translatable(soundInstance.getSound().getLocation().toShortLanguageKey().replace("/", "."));
                 renderConditionalTextWithFade(trackName, guiGraphics, deltaTracker, true);
                 if (!MC.getSoundManager().isActive(soundInstance)) soundInstance = null;
             }
@@ -50,6 +49,9 @@ public class NowPlayingWidget {
     public static void displayWidget(SoundInstance sound) {
         if (!(MC.screen instanceof PauseScreen)) {
             soundInstance = sound;
+            if (soundInstance != null && soundInstance.getSound() != null) {
+                trackName = Component.translatable(soundInstance.getSound().getLocation().toShortLanguageKey().replace("/", "."));
+            }
             centered = MC.screen == null;
             timer = ModConfig.nowPlayingWidgetDuration * 20;
         }
