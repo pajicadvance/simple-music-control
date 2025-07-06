@@ -1,2 +1,2 @@
-- The 1.21.6+ version actually works now (oops)
-- There's now a null check with a message that something went wrong to prevent the mod from tripping over and exploding
+- Fixed Now Playing widget being rendered on top of a few screens or UI elements.
+- Fixed null error message being immediately shown on startup on the title screen.
