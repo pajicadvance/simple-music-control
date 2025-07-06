@@ -32,7 +32,7 @@ public class NowPlayingWidget {
             if (soundInstance.getSound() == null) {
                 renderConditionalText(guiGraphics, Component.translatable("gui.simple_music_control.soundSystemFail"), Color.WHITE.getRGB());
             }
-            else {
+            else if (!(MC.level != null && MC.screen != null)) {
                 renderConditionalTextWithFade(trackName, guiGraphics, deltaTracker, true);
                 if (!MC.getSoundManager().isActive(soundInstance)) soundInstance = null;
             }
