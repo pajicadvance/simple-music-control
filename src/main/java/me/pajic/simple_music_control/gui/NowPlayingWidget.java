@@ -51,7 +51,7 @@ public class NowPlayingWidget {
             soundInstance = sound;
             if (soundInstance != null && soundInstance.getSound() != null) {
                 trackName = Component.translatable(soundInstance.getSound().getLocation().toShortLanguageKey().replace("/", "."));
-                centered = MC.screen == null;
+                centered = MC.level != null;
                 timer = ModConfig.nowPlayingWidgetDuration * 20;
             }
         }
@@ -59,7 +59,7 @@ public class NowPlayingWidget {
 
     public static void displayWidget() {
         if (!(MC.screen instanceof PauseScreen)) {
-            centered = MC.screen == null;
+            centered = MC.level != null;
             toggleTimer = ModConfig.nowPlayingWidgetDuration * 20;
         }
     }
