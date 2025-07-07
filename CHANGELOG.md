@@ -1,2 +1,1 @@
-- Fixed Now Playing widget being rendered on top of a few screens or UI elements.
-- Fixed null error message being immediately shown on startup on the title screen.
+- Fixed another logic error that sometimes caused the Now Playing widget to show in the top left instead of the action bar.
