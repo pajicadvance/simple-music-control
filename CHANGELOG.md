@@ -1,1 +1,1 @@
-- Fixed another logic error that sometimes caused the Now Playing widget to show in the top left instead of the action bar.
+- Version bump to support 1.21.8
