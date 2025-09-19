@@ -34,7 +34,9 @@ public class ModKeybinds {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (NEXT_MUSIC_TRACK.consumeClick() && JukeboxTracker.noJukeboxesInRange()) {
                 client.getMusicManager().stopPlaying();
-                client.getMusicManager().startPlaying(client.getSituationalMusic());
+                //? if >= 1.21.4
+                /*if (client.getSituationalMusic().music() != null)*/
+                    client.getMusicManager().startPlaying(client.getSituationalMusic());
             }
             if (TOGGLE_MUSIC.consumeClick()) {
                 if (ModUtil.globalPause) {
