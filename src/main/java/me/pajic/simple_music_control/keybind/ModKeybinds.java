@@ -46,7 +46,9 @@ public class ModKeybinds {
         Minecraft mc = Minecraft.getInstance();
         if (NEXT_MUSIC_TRACK.get().consumeClick() && JukeboxTracker.noJukeboxesInRange() && mc.player != null) {
             mc.getMusicManager().stopPlaying();
-            mc.getMusicManager().startPlaying(mc.getSituationalMusic());
+            //? if >= 1.21.4
+            /*if (mc.getSituationalMusic().music() != null)*/
+                mc.getMusicManager().startPlaying(mc.getSituationalMusic());
         }
         if (TOGGLE_MUSIC.get().consumeClick()) {
             if (ModUtil.globalPause) {

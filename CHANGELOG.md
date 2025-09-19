@@ -1,1 +1,1 @@
-- Version bump to support 1.21.8
+- Fixed crash when pressing the next track keybind in pale gardens on MC 1.21.5+.
