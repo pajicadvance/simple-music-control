@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.pajic.simple_music_control.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "MusicsMixin"
+  ],
+  "client": [
+    "GameRendererMixin",
+    "LevelEventHandlerMixin",
+    "MinecraftMixin",
+    "MusicManagerMixin",
+    "NowPlayingToastMixin",
+    "PauseScreenMixin",
+    "SoundEngineMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,1 +1,1 @@
-- Fixed crash when pressing the next track keybind in pale gardens on MC 1.21.5+.
+- Updated to Minecraft 1.21.9.
