@@ -20,12 +20,8 @@
   "description": "${description}",
   "icon": "icon.png",
   "license": "${license}",
-  "environment": "*",
-  "accessWidener": "aw/${minecraft}.accesswidener",
+  "environment": "client",
   "entrypoints": {
-    "main": [
-      "${group}.${id}.platform.fabric.FabricEntrypoint"
-    ],
     "client": [
       "${group}.${id}.platform.fabric.FabricClientEntrypoint"
     ]

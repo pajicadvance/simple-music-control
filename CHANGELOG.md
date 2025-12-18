@@ -1,0 +1,4 @@
+- Updated to Minecraft 1.21.11.
+- Soft rewrite of the mod to support the latest version.
+- Switched config API to Fzzy Config.
+- Disabled displaying the widget in the main menu due to issues.

@@ -30,7 +30,6 @@ platform {
 }
 
 loom {
-	accessWidenerPath = rootProject.file("src/main/resources/aw/${stonecutter.current.version}.accesswidener")
 	runs.named("client") {
 		client()
 		ideConfigGenerated(true)
@@ -91,12 +90,4 @@ dependencies {
 	modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabric-api")}")
 	modImplementation("me.fzzyhmstrs:fzzy_config:${prop("deps.fzzy_config")}")
 	modImplementation("com.terraformersmc:modmenu:${prop("deps.modmenu")}")
-	implementation("com.moulberry:mixinconstraints:${prop("deps.mixinconstraints")}")
-	include("com.moulberry:mixinconstraints:${prop("deps.mixinconstraints")}")
-	modImplementation("com.github.ramixin:mixson-fabric:${prop("deps.mixson")}") {
-		exclude(group = "net.fabricmc.fabric-api", module = "fabric-api")
-	}
-	include("com.github.ramixin:mixson-fabric:${prop("deps.mixson")}") {
-		exclude(group = "net.fabricmc.fabric-api", module = "fabric-api")
-	}
 }
