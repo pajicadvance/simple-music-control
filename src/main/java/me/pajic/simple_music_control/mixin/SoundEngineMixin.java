@@ -25,11 +25,11 @@ public class SoundEngineMixin {
     @Shadow @Final private Map<SoundInstance, ChannelAccess.ChannelHandle> instanceToChannel;
 
     @WrapMethod(method = "pauseAllExcept")
-    private void pauseAll(SoundSource[] soundSources, Operation<Void> original) {
+    private void pauseAll(SoundSource[] ignoredSources, Operation<Void> original) {
         if (ModUtil.globalPause || (!SMC.CONFIG.playMusicWhenPaused.get() && loaded)) {
-            instanceToChannel.forEach((instance, channel) -> channel.execute(Channel::pause));
+            instanceToChannel.forEach((_, channel) -> channel.execute(Channel::pause));
         }
-        else original.call((Object) soundSources);
+        else original.call((Object) ignoredSources);
     }
 
     @WrapMethod(method = "resume")
@@ -38,15 +38,15 @@ public class SoundEngineMixin {
     }
 
     @WrapMethod(method = "play")
-    private SoundEngine.PlayResult showWidgetOnMusicPlay(SoundInstance soundInstance, Operation<SoundEngine.PlayResult> original) {
-        if (soundInstance.getSource().equals(SoundSource.MUSIC)) {
+    private SoundEngine.PlayResult showWidgetOnMusicPlay(SoundInstance instance, Operation<SoundEngine.PlayResult> original) {
+        if (instance.getSource().equals(SoundSource.MUSIC)) {
             if (!ModUtil.globalPause) {
-                SoundEngine.PlayResult result = original.call(soundInstance);
-                if (SMC.CONFIG.nowPlayingWidget.get() || SMC.CONFIG.showNowPlayingWidgetInPauseMenu.get()) NowPlayingWidget.displayWidget(soundInstance);
+                SoundEngine.PlayResult result = original.call(instance);
+                if (SMC.CONFIG.nowPlayingWidget.get() || SMC.CONFIG.showNowPlayingWidgetInPauseMenu.get()) NowPlayingWidget.displayWidget(instance);
                 return result;
             }
             return SoundEngine.PlayResult.NOT_STARTED;
         }
-        return original.call(soundInstance);
+        return original.call(instance);
     }
 }

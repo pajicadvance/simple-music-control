@@ -36,7 +36,7 @@ public class FabricClientEntrypoint implements ClientModInitializer {
 		HudElementRegistry.attachElementAfter(
 				VanillaHudElements.OVERLAY_MESSAGE,
 				SMC.id("info_overlay"),
-				NowPlayingWidget::render
+				(graphics, _) -> NowPlayingWidget.render(graphics)
 		);
 	}
 

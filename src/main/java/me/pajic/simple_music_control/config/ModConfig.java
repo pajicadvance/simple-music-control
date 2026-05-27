@@ -6,7 +6,7 @@ import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedBoolean;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedEnum;
 import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedInt;
 import me.pajic.simple_music_control.SMC;
-import me.pajic.simple_music_control.gui.PauseMenuWidgetPosition;
+import me.pajic.simple_music_control.gui.WidgetPosition;
 
 @Version(version = 1)
 public class ModConfig extends Config {
@@ -25,7 +25,9 @@ public class ModConfig extends Config {
 	public ValidatedBoolean nowPlayingWidget = new ValidatedBoolean(true);
 	public ValidatedInt nowPlayingWidgetDuration = new ValidatedInt(6, Integer.MAX_VALUE, 1);
 	public ValidatedBoolean showNowPlayingWidgetInPauseMenu = new ValidatedBoolean(true);
-	public ValidatedEnum<PauseMenuWidgetPosition> pauseWidgetPosition = new ValidatedEnum<>(PauseMenuWidgetPosition.TOP_LEFT);
+	public ValidatedBoolean showNowPlayingWidgetOnTitleScreen = new ValidatedBoolean(true);
+	public ValidatedEnum<WidgetPosition> pauseWidgetPosition = new ValidatedEnum<>(WidgetPosition.TOP_LEFT);
+	public ValidatedEnum<WidgetPosition> titleWidgetPosition = new ValidatedEnum<>(WidgetPosition.TOP_LEFT);
 	public ValidatedBoolean unlockSituationalMusic = new ValidatedBoolean(false);
 	public ValidatedInt situationalMusicChance = new ValidatedInt(70, 100, 0);
 }

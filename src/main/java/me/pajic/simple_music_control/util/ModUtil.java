@@ -3,14 +3,12 @@ package me.pajic.simple_music_control.util;
 import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
 import me.pajic.simple_music_control.SMC;
 import me.pajic.simple_music_control.gui.MusicNoteColorManager;
-import me.pajic.simple_music_control.gui.NowPlayingWidget;
 import me.pajic.simple_music_control.keybind.ModKeybinds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 
 import java.util.Optional;
@@ -46,22 +44,8 @@ public class ModUtil {
 				}
 			}
 		}
-		if (ModKeybinds.NEXT_MUSIC_TRACK.consumeClick() && JukeboxTracker.noJukeboxesInRange()) {
-			client.getMusicManager().stopPlaying();
-			if (client.getSituationalMusic() != null) {
-				client.getMusicManager().startPlaying(client.getSituationalMusic());
-			}
-		}
-		if (ModKeybinds.TOGGLE_MUSIC.consumeClick()) {
-			if (ModUtil.globalPause) {
-				ModUtil.globalPause = false;
-				client.getSoundManager().resume();
-			} else {
-				ModUtil.globalPause = true;
-				client.getSoundManager().pauseAllExcept(SoundSource.MUSIC);
-			}
-			NowPlayingWidget.displayToggleNotification();
-		}
+		if (ModKeybinds.NEXT_MUSIC_TRACK.consumeClick()) ModKeybinds.onNextMusicTrack(client);
+		if (ModKeybinds.TOGGLE_MUSIC.consumeClick()) ModKeybinds.onToggleMusic(client);
 		MusicNoteColorManager.tickMusicNotes(client);
 	}
 }

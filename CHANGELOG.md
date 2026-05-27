@@ -1,1 +1,4 @@
-- Relaxed MC version requirement so that I don't have to upload a new file every time MC gets a hotfix. No functional changes to the mod.
+- Re-enabled widget on the title screen.
+- Added option to toggle displaying the widget on the title screen.
+- Mod keybinds now work in the pause menu and the title screen.
+- Fixed pause menu widget not updating correctly when music starts/stops playing.

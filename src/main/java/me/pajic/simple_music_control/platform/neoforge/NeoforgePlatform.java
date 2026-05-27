@@ -14,16 +14,6 @@ public class NeoforgePlatform implements Platform {
 	}
 
 	@Override
-	public ModLoader loader() {
-		return ModLoader.NEOFORGE;
-	}
-
-	@Override
-	public String mcVersion() {
-		return "";
-	}
-
-	@Override
 	public boolean isDevelopmentEnvironment() {
 		return !FMLLoader.getCurrent().isProduction();
 	}

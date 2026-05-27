@@ -39,7 +39,7 @@ public class NeoforgeClientEventSubscriber {
 
 	@SubscribeEvent
 	private static void registerNowPlayingWidget(RegisterGuiLayersEvent event) {
-		event.registerAbove(VanillaGuiLayers.SUBTITLE_OVERLAY, SMC.id("now_playing"), NowPlayingWidget::render);
+		event.registerAbove(VanillaGuiLayers.SUBTITLE_OVERLAY, SMC.id("now_playing"), (guiGraphics, _) -> NowPlayingWidget.render(guiGraphics));
 	}
 }
 *///?}

@@ -22,8 +22,8 @@ public class LevelEventHandlerMixin {
     @Shadow @Final private ClientLevel level;
 
     @WrapMethod(method = "playJukeboxSong")
-    private void onJukeboxPlay(Holder<JukeboxSong> song, BlockPos pos, Operation<Void> original) {
-        original.call(song, pos);
+    private void onJukeboxPlay(Holder<JukeboxSong> songHolder, BlockPos pos, Operation<Void> original) {
+        original.call(songHolder, pos);
         JukeboxTracker.onJukeboxPlay(level, minecraft, pos);
     }
 
