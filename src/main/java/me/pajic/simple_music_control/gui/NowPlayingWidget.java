@@ -2,6 +2,7 @@ package me.pajic.simple_music_control.gui;
 
 import me.pajic.simple_music_control.SMC;
 import me.pajic.simple_music_control.util.ModUtil;
+import me.pajic.simple_music_control.util.VersionedUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.PauseScreen;
@@ -23,11 +24,11 @@ public class NowPlayingWidget {
     private static boolean centered = true;
 
     public static void render(GuiGraphicsExtractor guiGraphics) {
-		if (!(MC.screen instanceof PauseScreen)) {
-		    if (SMC.CONFIG.nowPlayingWidget.get() && !MC.options.hideGui && isMusicOn() && soundInstance != null && timer > 0) {
+		if (!(VersionedUtil.getScreen(MC) instanceof PauseScreen)) {
+		    if (SMC.CONFIG.nowPlayingWidget.get() && !VersionedUtil.hudHidden(MC) && isMusicOn() && soundInstance != null && timer > 0) {
 				if (soundInstance.getSound() == null) {
 					renderConditionalText(guiGraphics, Component.translatable("gui.simple_music_control.soundSystemTrippedFellAndExploded"), Color.WHITE.getRGB(), false, 0);
-				} else if (!(MC.level != null && MC.screen != null)) {
+				} else if (!(MC.level != null && VersionedUtil.getScreen(MC) != null)) {
 					renderConditionalTextWithFade(trackName, guiGraphics, true);
 					if (!MC.getSoundManager().isActive(soundInstance)) soundInstance = null;
 				}
@@ -52,7 +53,7 @@ public class NowPlayingWidget {
     }
 
     public static void displayToggleNotification() {
-        if (!(MC.screen instanceof PauseScreen)) {
+        if (!(VersionedUtil.getScreen(MC) instanceof PauseScreen)) {
             centered = MC.level != null;
             toggleTimer = SMC.CONFIG.nowPlayingWidgetDuration.get() * 1000L;
         }
