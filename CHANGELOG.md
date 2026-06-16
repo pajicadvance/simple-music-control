@@ -1,4 +1,1 @@
-- Re-enabled widget on the title screen.
-- Added option to toggle displaying the widget on the title screen.
-- Mod keybinds now work in the pause menu and the title screen.
-- Fixed pause menu widget not updating correctly when music starts/stops playing.
+- Update to Fabric 26.2.
