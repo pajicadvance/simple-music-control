@@ -10,7 +10,7 @@ This mod tweaks the playback of background music in the game:
 - When playing a jukebox, background music will be stopped. Background music will also not start while a jukebox is playing nearby.
 - Additional optional control over situational music.
 
-Every feature can be configured and toggled on/off in the config.
+Every feature can be configured and toggled on/off in the config. Mod options can also be configured from [Sodium](https://modrinth.com/mod/sodium) video settings.
 
 ### Inspiration and mod recommendations
 
