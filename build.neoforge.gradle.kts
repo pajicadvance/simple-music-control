@@ -27,13 +27,6 @@ repositories {
     strictMaven("https://maven.su5ed.dev/releases", "Sinytra", "org.sinytra.forgified-fabric-api")
     strictMaven("https://thedarkcolour.github.io/KotlinForForge/", "Kotlin Forge")
     strictMaven("https://repo.nyon.dev/releases", "Kotlin Forge Again")
-    ivy {
-        url = uri("https://github.com/xameryn/Mixson/releases/download/")
-        patternLayout {
-            artifact("[revision]/[module]-[revision]-${sc.current.version}-neoforge.[ext]")
-        }
-        metadataSources { artifact() }
-    }
 }
 
 val requiredJava = when {
@@ -169,7 +162,7 @@ tasks {
             set(key, value)
         }
 
-        val at = "aw/${sc.current.version}.cfg"
+        val at = "aw/${sc.current.project.substringBefore('-')}.cfg"
         val mixinJava = "JAVA_${requiredJava.majorVersion}"
         val neoDepends = neoDependencies
 

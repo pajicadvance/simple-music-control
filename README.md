@@ -1,35 +1,23 @@
-# Multicutter
+# Simple Music Control
 
-Based on [Stonecutter Fabric & NeoForge template](https://github.com/stonecutter-versioning/stonecutter-template-multiloader)
+This mod tweaks the playback of background music in the game:
 
-- Multiloader and multiversion management with helper classes
-- Supports both obfuscated and unobfuscated game versions
-- Dependency handling using Stonecutter versioned properties
-- Versioned class tweakers and access transformers
-- Automatic Mixin and entrypoint registration
-- Automated Modrinth and CurseForge publishing
+- **Reduced delay between music tracks**. By default, background music plays twice as often.
+- **Next track keybind**: When pressed, immediately starts playing the next music track, and stops the current one if it's playing. Keybind is set to M by default and can be changed in the vanilla keybinds menu.
+- **Now Playing widget** that shows the artist and track name in-game when a track starts playing and in the pause menu while a track is playing.
+- Pausing the game no longer pauses background music.
+- Creative mode music has a chance to play in survival mode.
+- When playing a jukebox, background music will be stopped. Background music will also not start while a jukebox is playing nearby.
+- Additional optional control over situational music.
 
-### Pre-configured content
+Every feature can be configured and toggled on/off in the config.
 
-- Versions:
-    - 1.21.1 Fabric and NeoForge
-    - 26.1.2 Fabric and NeoForge
-    - 26.2 Fabric and NeoForge
-- Dependencies:
-    - Fabric API (required)
-    - Fzzy Config (required)
-    - Mixson (required)
-    - MixinConstraints (JiJ-d)
-    - Sodium (runtime)
+### Inspiration and mod recommendations
 
-No instructions on how to use this yet. If you do want to try it out, the only big difference compared to other templates is that dependencies are declared inside `stonecutter.properties.toml` and not manually inside the build scripts. You only need to add repositories to the build scripts. You can see how pre-configured dependencies are added as examples.
+I really like Minecraft's music, but it just doesn't play as often as I want it to, and some of the best tracks are locked behind creative mode for some reason (meaning you can never hear Aria Math in survival... wtf mojang?). I used [Mixtape](https://modrinth.com/mod/mixtape) for these purposes before, but that mod has way more features than I actually need, and it hasn't been updated in a while.
 
-The template may have bugs and oversights as I haven't moved any of my mods to it yet.
+Minecraft is a bit too silent in general for my tastes, so here are some sound mod recommendations to help break the silence in the game and bring in some more sound variety:
 
-Tooling used:
-- [Fabric Loom](https://github.com/FabricMC/fabric-loom): Used for the Fabric build script
-- [ModDevGradle](https://github.com/neoforged/ModDevGradle): Used for the NeoForge build script
-- [Stonecutter](https://stonecutter.kikugie.dev/): Multiloader and multiversion handling
-- [Loom Backwards Compatibility](https://codeberg.org/KikuGie/loom-back-compat): Allows the Fabric build script to handle both obfuscated and unobfuscated versions of the game
-- [Fletching Table](https://stonecutter.kikugie.dev/wiki/fletching-table/#fletching-table-overview): Handles automatic mixin and entrypoint registration
-- [Mod Publish Plugin](https://github.com/modmuss50/mod-publish-plugin): Handles automated publishing to Modrinth and CurseForge
+- [Euphonium](https://modrinth.com/mod/euphonium): The only ambient sound mod that I think doesn't feel out of place in Minecraft.
+- [Presence Footsteps](https://modrinth.com/mod/presence-footsteps): Incredibly high quality footstep sounds.
+- [ExtraSounds](https://modrinth.com/mod/extrasounds): Satisfying UI sounds for moving items around inventories among other things.

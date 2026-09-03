@@ -1,37 +1,36 @@
 # general
-mod.id = "modid"
-mod.name = "Template mod"
+mod.id = "simple_music_control"
+mod.name = "Simple Music Control"
 mod.group = "me.pajic"
-mod.version = "1.0.0"
-mod.description = ""
+mod.version = "1.5.1"
+mod.description = "Reduced delay between music tracks, next track keybind, creative music in survival, stop music on jukebox play"
 mod.authors = "pajic"
 mod.contributors = ""
 mod.license = "MIT"
 
 # links
-mod.sources_url = "https://github.com/pajicadvance/modid"
-mod.homepage_url = "https://modrinth.com/mod/modid"
-mod.issues_url = "https://github.com/pajicadvance/modid/issues"
+mod.sources_url = "https://github.com/pajicadvance/simple-music-control"
+mod.homepage_url = "https://modrinth.com/mod/simple-music-control"
+mod.issues_url = "https://github.com/pajicadvance/simple-music-control/issues"
 mod.discord_url = "https://discord.gg/5RkzS66zWb"
 
 # publishing
-publish.modrinth = ""
-publish.curseforge = ""
+publish.modrinth = "8AX2hHnX"
+publish.curseforge = "1185599"
 publish.env.mr = "CLIENT_AND_SERVER" #https://modmuss50.github.io/mod-publish-plugin/platforms/modrinth/#all-options
 publish.env.cf.client = true
 publish.env.cf.server = true
-publish.dry_run = true
+publish.dry_run = false
 
 # loom
 loomx.loom_version = "1.17-SNAPSHOT"
 
 # dependencies
 loader.fabric = "0.19.3"
-dep.mixinconstraints.coords = "com.moulberry:$id:$version"
 dep.fzzy_config.coords = "me.fzzyhmstrs:$id:$version"
 dep.fzzy_config.slug = "fzzy-config"
-dep.sodium.coords = "net.caffeinemc:$id-$loader:$version"
-include.mixinconstraints = "1.1.0"
+dep.sodium.coords = "net.caffeinemc:$id-$loader-api:$version"
+dep.sodium_runtime.coords = "net.caffeinemc:sodium-$loader:$version"
 dev.runtime_optionals = []
 
 [fabric]
@@ -44,9 +43,8 @@ dep.modmenu.coords = "com.terraformersmc:$id:$version"
 ["1.21.1"]
 mod.mc_releases = ["1.21", "1.21.1"]
 loader.neo = "21.1.244"
-dep.mixson.coords = "com.github:Mixson:$version"
-include.mixson = "2.1.0"
-runtime.sodium = "0.8.12+mc1.21.1"
+optional.sodium = "0.8.12+mc1.21.1"
+runtime.sodium_runtime = "0.8.12+mc1.21.1"
 
 [fabric."1.21.1"]
 mod.mc_compat = ">=1.21 <=1.21.1"
@@ -62,9 +60,8 @@ required.fzzy_config = "0.7.6+1.21+neoforge"
 ["26.1"]
 mod.mc_releases = ["26.1", "26.1.1", "26.1.2"]
 loader.neo = "26.1.2.87"
-dep.mixson.coords = "maven.modrinth:$id:$version"
-required.mixson = "2.2.0"
-runtime.sodium = "0.9.1+mc26.1.2"
+optional.sodium = "0.9.1+mc26.1.2"
+runtime.sodium_runtime = "0.9.1+mc26.1.2"
 
 [fabric."26.1"]
 mod.mc_compat = "~26.1"
@@ -80,9 +77,8 @@ required.fzzy_config = "0.7.6+26.1-pre-3+neoforge"
 ["26.2"]
 mod.mc_releases = ["26.2"]
 loader.neo = "26.2.0.36-beta"
-dep.mixson.coords = "maven.modrinth:$id:$version"
-required.mixson = "2.2.0"
-runtime.sodium = "0.9.1+mc26.2"
+optional.sodium = "0.9.1+mc26.2"
+runtime.sodium_runtime = "0.9.1+mc26.2"
 
 [fabric."26.2"]
 mod.mc_compat = "~26.2"
@@ -100,7 +96,8 @@ mod.mc_releases = ["26.3-pre.1"]
 #loader.neo = "26.2.0.36-beta"
 dep.mixson.coords = "maven.modrinth:$id:$version"
 required.mixson = "2.2.0"
-#runtime.sodium = "0.9.1+mc26.2"
+optional.sodium = "0.9.1+mc26.2"
+#runtime.sodium_runtime = "0.9.1+mc26.2"
 
 [fabric."26.3"]
 mod.mc_compat = "~26.3"

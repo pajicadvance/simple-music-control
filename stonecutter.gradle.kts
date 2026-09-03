@@ -39,6 +39,15 @@ stonecutter parameters {
             replace("ValidatedIdentifier", "ValidatedIdentifier")
             replace("ResourceLocation", "Identifier")
             replace("location()", "identifier()")
+            replace("GuiGraphics", "GuiGraphicsExtractor")
+            replace("guiGraphics.drawString", "guiGraphics.text")
+        }
+        string(current.parsed > "26.1.2") {
+            replace("MC.options.hideGui", "MC.gui.hud.isHidden()")
+            replace("MC.gui.getDebugOverlay().showDebugScreen()", "MC.gui.hud.getDebugOverlay().showDebugScreen()")
+            replace("MC.gameRenderer.getGameRenderState()", "MC.gameRenderer.gameRenderState()")
+            replace("MC.screen", "MC.gui.screen()")
+            replace("client.setScreen", "client.setScreenAndShow")
         }
     }
 }

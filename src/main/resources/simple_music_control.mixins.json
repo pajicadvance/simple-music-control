@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "me.pajic.simple_music_control.mixin",
+  "minVersion": "0.8",
+  "compatibilityLevel": "${java}",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  },
+  "mixins": [],
+  "client": []
+}

@@ -23,13 +23,6 @@ repositories {
     strictMaven("https://maven.terraformersmc.com/", "TerraformersMC", "com.terraformersmc")
     strictMaven("https://maven.caffeinemc.net/releases", "CaffeineMC", "net.caffeinemc")
     strictMaven("https://maven.su5ed.dev/releases", "Sinytra", "org.sinytra.forgified-fabric-api")
-    ivy {
-        url = uri("https://github.com/xameryn/Mixson/releases/download/")
-        patternLayout {
-            artifact("[revision]/[module]-[revision]-${sc.current.version}-fabric.[ext]")
-        }
-        metadataSources { artifact() }
-    }
 }
 
 val requiredJava: JavaVersion = when {
@@ -154,7 +147,7 @@ tasks {
             set(key, value)
         }
 
-        val ct = "aw/${sc.current.version}.ct"
+        val ct = "aw/${sc.current.project.substringBefore('-')}.ct"
         val mixinJava = "JAVA_${requiredJava.majorVersion}"
         val depends = fabricDepends
         val suggests = fabricSuggests
