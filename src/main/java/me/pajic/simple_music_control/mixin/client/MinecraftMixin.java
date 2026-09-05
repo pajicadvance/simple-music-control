@@ -31,9 +31,7 @@ import org.objectweb.asm.Opcodes;
 public class MinecraftMixin {
 
     @Shadow @Nullable public LocalPlayer player;
-
-	@Shadow
-	private volatile boolean pause;
+	@Shadow private boolean pause;
 
 	@Inject(
             //~ if <26.1 'updateLevelInEngines(Lnet/minecraft/client/multiplayer/ClientLevel;Z)V' -> 'updateLevelInEngines'
