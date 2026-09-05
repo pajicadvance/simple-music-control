@@ -2,7 +2,7 @@
 mod.id = "simple_music_control"
 mod.name = "Simple Music Control"
 mod.group = "me.pajic"
-mod.version = "1.5.1"
+mod.version = "1.5.2"
 mod.description = "Reduced delay between music tracks, next track keybind, creative music in survival, stop music on jukebox play"
 mod.authors = "pajic"
 mod.contributors = ""

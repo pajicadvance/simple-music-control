@@ -1,3 +1,7 @@
+1.5.2:
+- Fixed code error that could cause a crash.
+
+1.5.1:
 - Mod options can now be configured from Sodium video settings. Fzzy Config is still required.
 - Min and max music delays from the mod no longer overwrite delays set by the game and instead represent the min and max possible delays.
 - Changed default minimum delay to 0.
