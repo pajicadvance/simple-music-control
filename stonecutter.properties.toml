@@ -2,7 +2,7 @@
 mod.id = "simple_music_control"
 mod.name = "Simple Music Control"
 mod.group = "me.pajic"
-mod.version = "1.5.2"
+mod.version = "1.5.3"
 mod.description = "Reduced delay between music tracks, next track keybind, creative music in survival, stop music on jukebox play"
 mod.authors = "pajic"
 mod.contributors = ""
@@ -26,7 +26,7 @@ publish.dry_run = false
 loomx.loom_version = "1.17-SNAPSHOT"
 
 # dependencies
-loader.fabric = "0.19.3"
+loader.fabric = "0.19.5"
 dep.fzzy_config.coords = "me.fzzyhmstrs:$id:$version"
 dep.fzzy_config.slug = "fzzy-config"
 dep.sodium.coords = "net.caffeinemc:$id-$loader-api:$version"
@@ -92,18 +92,18 @@ required.fzzy_config = "0.7.6+26.2+neoforge"
 
 
 ["26.3"]
-mod.mc_releases = ["26.3-pre.1"]
+mod.mc_releases = ["26.3"]
 #loader.neo = "26.2.0.36-beta"
 dep.mixson.coords = "maven.modrinth:$id:$version"
 required.mixson = "2.2.0"
-optional.sodium = "0.9.1+mc26.2"
-#runtime.sodium_runtime = "0.9.1+mc26.2"
+optional.sodium = "0.9.2+mc26.3"
+runtime.sodium_runtime = "0.9.2+mc26.3"
 
 [fabric."26.3"]
 mod.mc_compat = "~26.3"
-required.fabric-api = "0.159.1+26.3"
-required.fzzy_config = "0.7.6+26.2-pre-3"
-#runtime.modmenu = "20.0.1"
+required.fabric-api = "0.160.5+26.3"
+required.fzzy_config = "0.7.7+26.3"
+runtime.modmenu = "21.0.0-beta.1"
 
 #[neoforge."26.2"]
 #mod.mc_compat = "[26.3, 26.4)"

@@ -1,9 +1,2 @@
-1.5.2:
-- Fixed code error that could cause a crash.
-
-1.5.1:
-- Mod options can now be configured from Sodium video settings. Fzzy Config is still required.
-- Min and max music delays from the mod no longer overwrite delays set by the game and instead represent the min and max possible delays.
-- Changed default minimum delay to 0.
-- Updated to NeoForge 26.2.
-- Backported all changes since 1.3.7 to 1.21.1 versions.
+- Added Fabric 26.3 version.
+- Fixed min delay setting validation error.

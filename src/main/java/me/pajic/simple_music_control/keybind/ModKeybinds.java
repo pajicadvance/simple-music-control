@@ -12,11 +12,8 @@ import me.pajic.simple_music_control.SMC;
 import net.minecraft.sounds.SoundSource;
 //?}
 
-//? <26.3-pre-1 {
-import org.lwjgl.glfw.GLFW;
-//?} else {
-/*import org.lwjgl.sdl.SDLKeycode;
-*///?}
+//? <26.3
+//import org.lwjgl.glfw.GLFW;
 
 public class ModKeybinds {
 
@@ -25,20 +22,20 @@ public class ModKeybinds {
 
 	public static final KeyMapping NEXT_MUSIC_TRACK = new KeyMapping(
 			"key.simple_music_control.next_music_track",
-            //~ if <26.3-pre-1 'KEYBOARD' -> 'KEYSYM'
-			InputConstants.Type.KEYSYM,
-            //~ if <26.3-pre-1 'SDLKeycode.SDLK_' -> 'GLFW.GLFW_KEY_'
-            GLFW.GLFW_KEY_M,
+            //~ if <26.3 'KEYBOARD' -> 'KEYSYM'
+			InputConstants.Type.KEYBOARD,
+            //~ if <26.3 'InputConstants.KEY_' -> 'GLFW.GLFW_KEY_'
+            InputConstants.KEY_M,
             //~ if <26.1 'MOD_KEYS' -> '"key.category.simple_music_control.keys"'
 			MOD_KEYS
 	);
 
 	public static final KeyMapping TOGGLE_MUSIC = new KeyMapping(
 			"key.simple_music_control.toggle_music",
-            //~ if <26.3-pre-1 'KEYBOARD' -> 'KEYSYM'
-			InputConstants.Type.KEYSYM,
-            //~ if <26.3-pre-1 'SDLKeycode.SDLK_' -> 'GLFW.GLFW_KEY_'
-            GLFW.GLFW_KEY_UNKNOWN,
+            //~ if <26.3 'KEYBOARD' -> 'KEYSYM'
+			InputConstants.Type.KEYBOARD,
+            //~ if <26.3 'InputConstants.KEY_' -> 'GLFW.GLFW_KEY_'
+            InputConstants.UNKNOWN.getValue(),
             //~ if <26.1 'MOD_KEYS' -> '"key.category.simple_music_control.keys"'
 			MOD_KEYS
 	);
