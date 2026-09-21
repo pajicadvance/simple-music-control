@@ -1,2 +1,1 @@
-- Added Fabric 26.3 version.
-- Fixed min delay setting validation error.
+- Fix incorrect dependency information.

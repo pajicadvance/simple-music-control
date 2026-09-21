@@ -2,7 +2,7 @@
 mod.id = "simple_music_control"
 mod.name = "Simple Music Control"
 mod.group = "me.pajic"
-mod.version = "1.5.3"
+mod.version = "1.5.4"
 mod.description = "Reduced delay between music tracks, next track keybind, creative music in survival, stop music on jukebox play"
 mod.authors = "pajic"
 mod.contributors = ""
@@ -94,8 +94,6 @@ required.fzzy_config = "0.7.6+26.2+neoforge"
 ["26.3"]
 mod.mc_releases = ["26.3"]
 #loader.neo = "26.2.0.36-beta"
-dep.mixson.coords = "maven.modrinth:$id:$version"
-required.mixson = "2.2.0"
 optional.sodium = "0.9.2+mc26.3"
 runtime.sodium_runtime = "0.9.2+mc26.3"
 
