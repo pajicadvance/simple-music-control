@@ -1,1 +1,2 @@
-- Fix incorrect dependency information.
+- Fixed minimum music delay setting not applying properly.
+- Corrected possible config validation errors that could cause some config values to be reset.

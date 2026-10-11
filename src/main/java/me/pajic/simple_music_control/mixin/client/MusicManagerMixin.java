@@ -35,7 +35,7 @@ public class MusicManagerMixin {
 				)
 		)
 		private int modifyMinDelay(int original) {
-			return Math.max(original, SMC.CONFIG.musicMinDelay.get() * 20);
+			return Math.min(original, SMC.CONFIG.musicMinDelay.get() * 20);
 		}
 
 		@ModifyExpressionValue(
@@ -58,7 +58,7 @@ public class MusicManagerMixin {
             )
     )
     private int modifyMinDelay(int original) {
-        return Math.max(original, SMC.CONFIG.musicMinDelay.get() * 20);
+        return Math.min(original, SMC.CONFIG.musicMinDelay.get() * 20);
     }
 
     @ModifyExpressionValue(

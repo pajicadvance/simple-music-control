@@ -2,7 +2,7 @@
 mod.id = "simple_music_control"
 mod.name = "Simple Music Control"
 mod.group = "me.pajic"
-mod.version = "1.5.4"
+mod.version = "1.5.5"
 mod.description = "Reduced delay between music tracks, next track keybind, creative music in survival, stop music on jukebox play"
 mod.authors = "pajic"
 mod.contributors = ""
@@ -100,7 +100,7 @@ runtime.sodium_runtime = "0.9.2+mc26.3"
 [fabric."26.3"]
 mod.mc_compat = "~26.3"
 required.fabric-api = "0.160.5+26.3"
-required.fzzy_config = "0.7.7+26.3"
+required.fzzy_config = "0.7.7+fix3+26.3"
 runtime.modmenu = "21.0.0-beta.1"
 
 #[neoforge."26.2"]
