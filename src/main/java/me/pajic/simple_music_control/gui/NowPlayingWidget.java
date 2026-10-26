@@ -30,6 +30,7 @@ public class NowPlayingWidget {
 		    if (SMC.CONFIG.nowPlayingWidget.get() && !MC.gui.hud.isHidden() && isMusicOn() && soundInstance != null && timer > 0) {
 				if (soundInstance.getSound() == null) {
 					renderConditionalText(guiGraphics, Component.translatable("gui.simple_music_control.soundSystemTrippedFellAndExploded"), Color.WHITE.getRGB(), false, 0);
+					timer -= System.currentTimeMillis() - previousTickMillis;
 				} else if (!(MC.level != null && MC.gui.screen() != null)) {
 					renderConditionalTextWithFade(trackName, guiGraphics, true);
 					if (!MC.getSoundManager().isActive(soundInstance)) soundInstance = null;
@@ -47,8 +48,8 @@ public class NowPlayingWidget {
 
     public static void displayWidget(SoundInstance sound) {
 		soundInstance = sound;
-		if (soundInstance != null && soundInstance.getSound() != null) {
-			trackName = Component.translatable(soundInstance.getSound().getLocation().toShortLanguageKey().replace("/", "."));
+		if (soundInstance != null) {
+			if (soundInstance.getSound() != null) trackName = Component.translatable(soundInstance.getSound().getLocation().toShortLanguageKey().replace("/", "."));
 			centered = MC.level != null;
 			timer = SMC.CONFIG.nowPlayingWidgetDuration.get() * 1000L;
 		}
@@ -63,7 +64,7 @@ public class NowPlayingWidget {
 
     public static void displayPauseScreenWidget(GuiGraphicsExtractor guiGraphics) {
         if (SMC.CONFIG.showNowPlayingWidgetInPauseMenu.get() && isMusicOn() && soundInstance != null && soundInstance.getSound() != null) {
-            renderCornerText(guiGraphics, true, Color.WHITE.getRGB(), MusicNoteColorManager.musicNoteColor);
+            renderCornerText(trackName, guiGraphics, true, Color.WHITE.getRGB(), MusicNoteColorManager.musicNoteColor);
         }
 		if (!MC.getSoundManager().isActive(soundInstance)) soundInstance = null;
     }
@@ -72,11 +73,11 @@ public class NowPlayingWidget {
         if (centered) {
             renderActionBarText(text, guiGraphics, 0, textColor);
 			if (note) {
-		        renderActionBarText(NOTE, guiGraphics, MC.font.width(trackName) / 2 + 7, noteColor);
-				renderActionBarText(NOTE, guiGraphics, -MC.font.width(trackName) / 2 - 7, noteColor);
+		        renderActionBarText(NOTE, guiGraphics, MC.font.width(text) / 2 + 7, noteColor);
+				renderActionBarText(NOTE, guiGraphics, -MC.font.width(text) / 2 - 7, noteColor);
 	        }
         }
-        else renderCornerText(guiGraphics, false, textColor, noteColor);
+        else renderCornerText(text, guiGraphics, false, textColor, noteColor);
     }
 
     private static void renderConditionalTextWithFade(Component text, GuiGraphicsExtractor guiGraphics, boolean note) {
@@ -104,28 +105,28 @@ public class NowPlayingWidget {
         );
     }
 
-    private static void renderCornerText(GuiGraphicsExtractor guiGraphics, boolean pauseMenu, int textColor, int noteColor) {
-        if (pauseMenu) renderCornerText(SMC.CONFIG.pauseWidgetPosition.get(), guiGraphics, textColor, noteColor);
-		else renderCornerText(SMC.CONFIG.titleWidgetPosition.get(), guiGraphics, textColor, noteColor);
+    private static void renderCornerText(Component text, GuiGraphicsExtractor guiGraphics, boolean pauseMenu, int textColor, int noteColor) {
+        if (pauseMenu) renderCornerText(text, SMC.CONFIG.pauseWidgetPosition.get(), guiGraphics, textColor, noteColor);
+		else renderCornerText(text, SMC.CONFIG.titleWidgetPosition.get(), guiGraphics, textColor, noteColor);
     }
 
-	private static void renderCornerText(WidgetPosition pos, GuiGraphicsExtractor guiGraphics, int textColor, int noteColor) {
+	private static void renderCornerText(Component text, WidgetPosition pos, GuiGraphicsExtractor guiGraphics, int textColor, int noteColor) {
 		switch (pos) {
 			case TOP_LEFT -> {
 				guiGraphics.text(MC.font, NOTE, 4, 4, noteColor);
-				guiGraphics.text(MC.font, trackName, 15, 4, textColor);
+				guiGraphics.text(MC.font, text, 15, 4, textColor);
 			}
 			case TOP_RIGHT -> {
 				guiGraphics.text(MC.font, NOTE, MC.getWindow().getGuiScaledWidth() - 12, 4, noteColor);
-				guiGraphics.text(MC.font, trackName, MC.getWindow().getGuiScaledWidth() - MC.font.width(trackName) - 16, 4, textColor);
+				guiGraphics.text(MC.font, text, MC.getWindow().getGuiScaledWidth() - MC.font.width(text) - 16, 4, textColor);
 			}
 			case BOTTOM_LEFT -> {
 				guiGraphics.text(MC.font, NOTE, 4, MC.getWindow().getGuiScaledHeight() - 11, noteColor);
-				guiGraphics.text(MC.font, trackName, 15, MC.getWindow().getGuiScaledHeight() - 11, textColor);
+				guiGraphics.text(MC.font, text, 15, MC.getWindow().getGuiScaledHeight() - 11, textColor);
 			}
 			case BOTTOM_RIGHT -> {
 				guiGraphics.text(MC.font, NOTE, MC.getWindow().getGuiScaledWidth() - 12, MC.getWindow().getGuiScaledHeight() - 11, noteColor);
-				guiGraphics.text(MC.font, trackName, MC.getWindow().getGuiScaledWidth() - MC.font.width(trackName) - 16, MC.getWindow().getGuiScaledHeight() - 11, textColor);
+				guiGraphics.text(MC.font, text, MC.getWindow().getGuiScaledWidth() - MC.font.width(text) - 16, MC.getWindow().getGuiScaledHeight() - 11, textColor);
 			}
 		}
 	}

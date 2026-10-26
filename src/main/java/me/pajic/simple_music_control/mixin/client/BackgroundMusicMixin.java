@@ -15,7 +15,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Optional;
-import java.util.Random;
 
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 @Mixin(BackgroundMusic.class)
@@ -34,7 +33,7 @@ public class BackgroundMusicMixin {
 			ClientLevel level = Minecraft.getInstance().level;
 			if (original.get().equals(Musics.GAME)) return Optional.of(Musics.CREATIVE);
 			else if (level != null && level.dimension() == Level.OVERWORLD) {
-				return new Random().nextBoolean() ? original : Optional.of(Musics.CREATIVE);
+				return level.getRandom().nextBoolean() ? original : Optional.of(Musics.CREATIVE);
 			}
 		}
 		return original;

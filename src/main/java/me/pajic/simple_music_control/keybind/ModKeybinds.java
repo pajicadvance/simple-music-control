@@ -2,15 +2,15 @@ package me.pajic.simple_music_control.keybind;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import me.pajic.simple_music_control.gui.NowPlayingWidget;
+import me.pajic.simple_music_control.mixin.client.SoundManagerAccessor;
 import me.pajic.simple_music_control.util.JukeboxTracker;
 import me.pajic.simple_music_control.util.ModUtil;
+import me.pajic.simple_music_control.util.MusicPauseControl;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 
-//? >=26.1 {
+//? >=26.1
 import me.pajic.simple_music_control.SMC;
-import net.minecraft.sounds.SoundSource;
-//?}
 
 //? <26.3
 //import org.lwjgl.glfw.GLFW;
@@ -50,14 +50,8 @@ public class ModKeybinds {
 	}
 
 	public static void onToggleMusic(Minecraft client) {
-		if (ModUtil.globalPause) {
-			ModUtil.globalPause = false;
-			client.getSoundManager().resume();
-		} else {
-			ModUtil.globalPause = true;
-            //~ if <26.1 'pauseAllExcept(SoundSource.MUSIC)' -> 'pause()'
-			client.getSoundManager().pauseAllExcept(SoundSource.MUSIC);
-		}
+		ModUtil.globalPause = !ModUtil.globalPause;
+		((MusicPauseControl) ((SoundManagerAccessor) client.getSoundManager()).smc$getSoundEngine()).smc$setMusicPaused(ModUtil.globalPause);
 		NowPlayingWidget.displayToggleNotification();
 	}
 }

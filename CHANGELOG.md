@@ -1,2 +1,10 @@
-- Fixed minimum music delay setting not applying properly.
-- Corrected possible config validation errors that could cause some config values to be reset.
+- Fixed Overworld music playing in the Nether and the End when situational music is unlocked.
+- Fixed background music never starting again after disabling "Stop music when playing jukebox" while a jukebox was playing.
+- Fixed the pause/play music notification showing the track name instead of the notification text on the title screen.
+- Fixed a possible crash when pausing or resuming music on the title screen before any track started playing.
+- Fixed the "Unable to get track information" message staying on screen indefinitely.
+- The pause/play music keybind now only pauses music, other sounds are no longer paused.
+- Fixed resuming music from the pause menu also resuming game sounds while the game is paused.
+- UI sounds are no longer paused when pausing the game with "Continue playing music when paused" disabled.
+- Fixed some more config inconsistencies.
+- Added descriptions to all config options.

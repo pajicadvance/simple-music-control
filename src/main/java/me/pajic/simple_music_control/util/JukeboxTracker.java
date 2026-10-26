@@ -12,19 +12,17 @@ public class JukeboxTracker {
     public static Object2BooleanOpenHashMap<BlockPos> jukeboxes = new Object2BooleanOpenHashMap<>();
 
     public static void onJukeboxPlay(Level level, Minecraft minecraft, BlockPos pos) {
-        if (SMC.CONFIG.stopMusicOnJukeboxUse.get() && level != null) {
-            minecraft.getMusicManager().stopPlaying();
+        if (level != null) {
             jukeboxes.put(pos, true);
+            if (SMC.CONFIG.stopMusicOnJukeboxUse.get()) minecraft.getMusicManager().stopPlaying();
         }
     }
 
     public static void onJukeboxStop(BlockPos pos) {
-        if (SMC.CONFIG.stopMusicOnJukeboxUse.get()) {
-            jukeboxes.removeBoolean(pos);
-        }
+        jukeboxes.removeBoolean(pos);
     }
 
     public static boolean noJukeboxesInRange() {
-        return jukeboxes.object2BooleanEntrySet().stream().noneMatch(Object2BooleanMap.Entry::getBooleanValue);
+        return !SMC.CONFIG.stopMusicOnJukeboxUse.get() || jukeboxes.object2BooleanEntrySet().stream().noneMatch(Object2BooleanMap.Entry::getBooleanValue);
     }
 }
