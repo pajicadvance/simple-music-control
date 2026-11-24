@@ -19,6 +19,7 @@ public class ModConfig extends Config {
 	public ValidatedBoolean stopMusicOnJukeboxUse = new ValidatedBoolean(true);
 	public ValidatedBoolean creativeMusicInSurvival = new ValidatedBoolean(true);
 	public ValidatedBoolean situationalMusicInCreative = new ValidatedBoolean(true);
+	public ValidatedBoolean equalizeMusicWeights = new ValidatedBoolean(true);
 	public ValidatedInt musicMinDelay = new ValidatedInt(300, 2400, 0, ValidatedNumber.WidgetType.TEXTBOX);
 	public ValidatedInt musicMaxDelay = new ValidatedInt(600, 2400, 10, ValidatedNumber.WidgetType.TEXTBOX);
 	public ValidatedBoolean playMusicWhenPaused = new ValidatedBoolean(true);

@@ -9,34 +9,25 @@ import me.pajic.simple_music_control.util.MusicPauseControl;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 
-//? >=26.1
+//? >=1.21.9
 import me.pajic.simple_music_control.SMC;
-
-//? <26.3
-//import org.lwjgl.glfw.GLFW;
 
 public class ModKeybinds {
 
-    //? >=26.1
+    //? >=1.21.9
 	public static final KeyMapping.Category MOD_KEYS = new KeyMapping.Category(SMC.id("keys"));
 
 	public static final KeyMapping NEXT_MUSIC_TRACK = new KeyMapping(
 			"key.simple_music_control.next_music_track",
-            //~ if <26.3 'KEYBOARD' -> 'KEYSYM'
-			InputConstants.Type.KEYBOARD,
-            //~ if <26.3 'InputConstants.KEY_' -> 'GLFW.GLFW_KEY_'
-            InputConstants.KEY_M,
-            //~ if <26.1 'MOD_KEYS' -> '"key.category.simple_music_control.keys"'
+			InputConstants.getKey("key.keyboard.m").getValue(),
+            //~ if <1.21.9 'MOD_KEYS' -> '"key.category.simple_music_control.keys"'
 			MOD_KEYS
 	);
 
 	public static final KeyMapping TOGGLE_MUSIC = new KeyMapping(
 			"key.simple_music_control.toggle_music",
-            //~ if <26.3 'KEYBOARD' -> 'KEYSYM'
-			InputConstants.Type.KEYBOARD,
-            //~ if <26.3 'InputConstants.KEY_' -> 'GLFW.GLFW_KEY_'
-            InputConstants.UNKNOWN.getValue(),
-            //~ if <26.1 'MOD_KEYS' -> '"key.category.simple_music_control.keys"'
+			InputConstants.UNKNOWN.getValue(),
+            //~ if <1.21.9 'MOD_KEYS' -> '"key.category.simple_music_control.keys"'
 			MOD_KEYS
 	);
 

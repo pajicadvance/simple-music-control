@@ -1,6 +1,6 @@
 package me.pajic.simple_music_control.mixin.client;
 
-//? <26.1 {
+//? <1.21.2 {
 
 /*import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;

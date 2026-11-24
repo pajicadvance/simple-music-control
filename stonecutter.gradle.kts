@@ -31,6 +31,7 @@ stonecutter parameters {
     swaps["loader_util_import"] = "import ${modGroup}.${modId}.platform.${loader}.${loaderFormatted}LoaderUtil;"
     swaps["loader_util_inst"] = "new ${loaderFormatted}LoaderUtil();"
     constants["release"] = properties.get<String>("mod.id") != "template"
+    constants["sodium"] = properties.getOrNull<String>("optional.sodium") != null
     dependencies["fapi"] = properties.getOrNull<String>("deps.fabric_api") ?: "0"
 
     replacements {
@@ -39,6 +40,8 @@ stonecutter parameters {
             replace("ValidatedIdentifier", "ValidatedIdentifier")
             replace("ResourceLocation", "Identifier")
             replace("location()", "identifier()")
+        }
+        string(current.parsed >= "26.1") {
             replace("GuiGraphics", "GuiGraphicsExtractor")
             replace("guiGraphics.drawString", "guiGraphics.text")
         }

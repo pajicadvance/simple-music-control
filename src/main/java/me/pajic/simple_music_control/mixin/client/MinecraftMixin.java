@@ -1,6 +1,5 @@
 package me.pajic.simple_music_control.mixin.client;
 
-
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import me.pajic.simple_music_control.SMC;
 import me.pajic.simple_music_control.util.JukeboxTracker;
@@ -18,11 +17,18 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Optional;
 
-//? >=26.1 {
+//? >=1.21.11 {
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.attribute.BackgroundMusic;
-//?} else {
+//?} else if >=1.21.4 {
+/*import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.sounds.MusicInfo;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
+import org.spongepowered.asm.mixin.Unique;
+*///?} else {
 /*import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import org.objectweb.asm.Opcodes;
 *///?}
@@ -34,7 +40,7 @@ public class MinecraftMixin {
 	@Shadow private boolean pause;
 
 	@Inject(
-            //~ if <26.1 'updateLevelInEngines(Lnet/minecraft/client/multiplayer/ClientLevel;Z)V' -> 'updateLevelInEngines'
+            //~ if <1.21.11 'updateLevelInEngines(Lnet/minecraft/client/multiplayer/ClientLevel;Z)V' -> 'updateLevelInEngines'
 			method = "updateLevelInEngines(Lnet/minecraft/client/multiplayer/ClientLevel;Z)V",
 			at = @At("TAIL")
 	)
@@ -53,7 +59,7 @@ public class MinecraftMixin {
 		return !pause || SMC.CONFIG.playMusicWhenPaused.get();
 	}
 
-    //? >=26.1 {
+    //? >=1.21.11 {
     @SuppressWarnings({"DataFlowIssue", "resource"})
 	@ModifyReturnValue(
             method = "getSituationalMusic",
@@ -62,7 +68,7 @@ public class MinecraftMixin {
 					ordinal = 2
 			)
     )
-    private Music handleSituationalMusic(Music original, @Local(name = "backgroundMusic") BackgroundMusic backgroundMusic) {
+    private Music handleSituationalMusic(Music original, @Local BackgroundMusic backgroundMusic) {
 		Optional<Music> unlockedSituational = ModUtil.pickRandomSituationalMusic(player);
 		if (original != null && original.equals(Musics.CREATIVE) && SMC.CONFIG.situationalMusicInCreative.get()) {
 			return unlockedSituational.orElse(player.level().getRandom().nextBoolean() ?
@@ -71,7 +77,43 @@ public class MinecraftMixin {
 		}
         return unlockedSituational.orElse(original);
     }
-    //?} else {
+    //?} else if >=1.21.4 {
+    /*@Shadow @Nullable public Screen screen;
+
+    @SuppressWarnings("DataFlowIssue")
+    @ModifyReturnValue(
+            method = "getSituationalMusic",
+            at = @At("RETURN")
+    )
+    private MusicInfo handleSituationalMusic(MusicInfo original) {
+        Music music = original.music();
+        if (player == null || music == null || (screen != null && screen.getBackgroundMusic() != null) || player.level().dimension() == Level.END) return original;
+        RandomSource random = player.level().getRandom();
+        Optional<Music> unlockedSituational = ModUtil.pickRandomSituationalMusic(player);
+        if (music.equals(Musics.CREATIVE)) {
+            if (SMC.CONFIG.situationalMusicInCreative.get()) {
+                music = unlockedSituational.orElse(random.nextBoolean() ? Musics.CREATIVE : smc$creativeMusicInSurvival(smc$getBiomeMusic(random), random));
+            }
+        }
+        else music = unlockedSituational.orElse(smc$creativeMusicInSurvival(music, random));
+        return new MusicInfo(music, original.volume());
+    }
+
+    @Unique
+    @SuppressWarnings("DataFlowIssue")
+    private Music smc$getBiomeMusic(RandomSource random) {
+        //~ if <1.21.5 'getRandom(' -> 'getRandomValue('
+        return player.level().getBiome(player.blockPosition()).value().getBackgroundMusic().flatMap(list -> list.getRandom(random)).orElse(Musics.GAME);
+    }
+
+    @Unique
+    @SuppressWarnings("DataFlowIssue")
+    private Music smc$creativeMusicInSurvival(Music music, RandomSource random) {
+        if (!SMC.CONFIG.creativeMusicInSurvival.get() || music.equals(Musics.UNDER_WATER)) return music;
+        if (music.equals(Musics.GAME)) return Musics.CREATIVE;
+        return player.level().dimension() == Level.OVERWORLD && random.nextBoolean() ? Musics.CREATIVE : music;
+    }
+    *///?} else {
     /*@ModifyExpressionValue(
             method = "getSituationalMusic",
             at = @At(
@@ -81,7 +123,7 @@ public class MinecraftMixin {
             )
     )
     private Music allowCreativeMusicInSurvival(Music original) {
-        return SMC.CONFIG.situationalMusicInCreative.get() ? Musics.CREATIVE : original;
+        return SMC.CONFIG.creativeMusicInSurvival.get() ? Musics.CREATIVE : original;
     }
 
     @ModifyExpressionValue(

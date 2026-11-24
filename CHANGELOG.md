@@ -1,10 +1,4 @@
-- Fixed Overworld music playing in the Nether and the End when situational music is unlocked.
-- Fixed background music never starting again after disabling "Stop music when playing jukebox" while a jukebox was playing.
-- Fixed the pause/play music notification showing the track name instead of the notification text on the title screen.
-- Fixed a possible crash when pausing or resuming music on the title screen before any track started playing.
-- Fixed the "Unable to get track information" message staying on screen indefinitely.
-- The pause/play music keybind now only pauses music, other sounds are no longer paused.
-- Fixed resuming music from the pause menu also resuming game sounds while the game is paused.
-- UI sounds are no longer paused when pausing the game with "Continue playing music when paused" disabled.
-- Fixed some more config inconsistencies.
-- Added descriptions to all config options.
+- Added support for Minecraft 1.21.2 to 1.21.11.
+- Added a "Fair music distribution" option, enabled by default, that gives every music track the same chance to play. This fixes music being skewed towards the newest tracks ([MC-308155](https://mojira.dev/MC-308155)).
+- The weight of event-type entries in sounds.json is now applied instead of being ignored, allowing resource packs to control how often a nested sound event is picked.
+- Fixed "Creative music in survival" being controlled by the "Situational music in creative" option on 1.21.1.

@@ -20,7 +20,7 @@ public class NeoforgeClientEventSubscriber {
 
     @SubscribeEvent
     private static void initKeybinds(RegisterKeyMappingsEvent event) {
-        //? >=26.1
+        //? >=1.21.9
         event.registerCategory(ModKeybinds.MOD_KEYS);
         event.register(ModKeybinds.NEXT_MUSIC_TRACK);
         event.register(ModKeybinds.TOGGLE_MUSIC);

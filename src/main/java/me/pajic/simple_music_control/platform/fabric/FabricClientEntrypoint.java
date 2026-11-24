@@ -11,12 +11,15 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 //~ if <26.1 'keymapping.v1.KeyMappingHelper' -> 'keybinding.v1.KeyBindingHelper'
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 
-//? >=26.1 {
+//? >=1.21.9 {
 import me.pajic.simple_music_control.SMC;
+import net.minecraft.client.KeyMapping;
+//?}
+
+//? >=26.1 {
 import me.pajic.simple_music_control.gui.NowPlayingWidget;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
-import net.minecraft.client.KeyMapping;
 //?}
 
 @Entrypoint("client")
@@ -24,7 +27,7 @@ public class FabricClientEntrypoint implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        //? >=26.1
+        //? >=1.21.9
         KeyMapping.Category.register(SMC.id("keys"));
         //~ if <26.1 'KeyMappingHelper.registerKeyMapping' -> 'KeyBindingHelper.registerKeyBinding' {
         KeyMappingHelper.registerKeyMapping(ModKeybinds.NEXT_MUSIC_TRACK);

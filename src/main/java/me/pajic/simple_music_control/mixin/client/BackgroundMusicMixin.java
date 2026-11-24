@@ -1,6 +1,6 @@
 package me.pajic.simple_music_control.mixin.client;
 
-//? >=26.1 {
+//? >=1.21.11 {
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import me.pajic.simple_music_control.SMC;

@@ -7,6 +7,8 @@
   "simple_music_control.config.creativeMusicInSurvival.desc": "Allows creative mode music tracks to play in survival mode.",
   "simple_music_control.config.situationalMusicInCreative": "Situational music in creative",
   "simple_music_control.config.situationalMusicInCreative.desc": "Allows situational music, such as biome-specific tracks, to play in creative mode.",
+  "simple_music_control.config.equalizeMusicWeights": "Fair music distribution",
+  "simple_music_control.config.equalizeMusicWeights.desc": "Gives every music track the same chance to play. Vanilla gives the newest tracks a higher chance, which makes older tracks play rarely.",
   "simple_music_control.config.unlockSituationalMusic": "Unlock situational music",
   "simple_music_control.config.unlockSituationalMusic.desc": "Gives situational music tracks a chance to play anywhere instead of only specific situations.",
   "simple_music_control.config.situationalMusicChance": "Unlocked situational music chance (%)",

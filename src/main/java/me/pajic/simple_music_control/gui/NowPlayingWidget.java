@@ -11,7 +11,7 @@ import net.minecraft.sounds.SoundSource;
 
 import java.awt.*;
 
-//~ if <26.1 'ARGB' -> 'FastColor'
+//~ if <1.21.2 'ARGB' -> 'FastColor'
 import net.minecraft.util.ARGB;
 
 public class NowPlayingWidget {
@@ -86,7 +86,7 @@ public class NowPlayingWidget {
         int i = (int) (t * 255L / 1000L);
         if (i > 255) i = 255;
         if (i > 8) {
-            //~ if <26.1 'ARGB' -> 'FastColor.ARGB32' {
+            //~ if <1.21.2 'ARGB' -> 'FastColor.ARGB32' {
             int textColor = ARGB.color(i, Color.WHITE.getRGB());
             int noteColor = ARGB.color(i, MusicNoteColorManager.musicNoteColor);
             //~}

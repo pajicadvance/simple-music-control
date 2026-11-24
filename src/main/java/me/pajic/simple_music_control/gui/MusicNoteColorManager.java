@@ -4,10 +4,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.DyeColor;
 
-//? >=26.1 {
+//? >=1.21.6 {
 import net.minecraft.client.color.ColorLerper;
 //?} else {
-/*import net.minecraft.util.FastColor;
+/*import me.pajic.simple_music_control.mixin.client.MusicManagerAccessor;
+//~ if <1.21.2 'ARGB' -> 'FastColor'
+import net.minecraft.util.ARGB;
 *///?}
 
 public class MusicNoteColorManager {
@@ -17,7 +19,7 @@ public class MusicNoteColorManager {
 	public static int musicNoteColor = -1;
 
 	public static void tickMusicNotes(Minecraft client) {
-        //~ if <26.1 'getCurrentMusicTranslationKey()' -> 'currentMusic'
+        //~ if <1.21.6 'client.getMusicManager().getCurrentMusicTranslationKey()' -> '((MusicManagerAccessor) client.getMusicManager()).smc$getCurrentMusic()'
 		if (client.getMusicManager().getCurrentMusicTranslationKey() != null) {
 			long l = System.currentTimeMillis();
 			if (l > lastMusicNoteColorChange + 25L) {
@@ -29,7 +31,7 @@ public class MusicNoteColorManager {
 	}
 
     private static int getLerpedColor(float f) {
-        //? >=26.1 {
+        //? >=1.21.6 {
         return ColorLerper.getLerpedColor(ColorLerper.Type.MUSIC_NOTE, f);
         //?} else {
         /*int i = Mth.floor(f);
@@ -40,11 +42,12 @@ public class MusicNoteColorManager {
         float g = (i % 30 + Mth.frac(f)) / 30;
         int n = getModifiedColor(MUSIC_NOTE_COLORS[l]);
         int o = getModifiedColor(MUSIC_NOTE_COLORS[m]);
-        return FastColor.ARGB32.lerp(g, n, o);
+        //~ if <1.21.2 'ARGB' -> 'FastColor.ARGB32'
+        return ARGB.lerp(g, n, o);
         *///?}
     }
 
-    //? <26.1 {
+    //? <1.21.6 {
     /*private static final DyeColor[] MUSIC_NOTE_COLORS = new DyeColor[]{
             DyeColor.WHITE,
             DyeColor.LIGHT_GRAY,
@@ -65,12 +68,14 @@ public class MusicNoteColorManager {
             return -1644826;
         } else {
             int i = dyeColor.getTextureDiffuseColor();
-            return FastColor.ARGB32.color(
+            //~ if <1.21.2 'ARGB' -> 'FastColor.ARGB32' {
+            return ARGB.color(
                     255,
-                    Mth.floor(FastColor.ARGB32.red(i) * (float) 1.25),
-                    Mth.floor(FastColor.ARGB32.green(i) * (float) 1.25),
-                    Mth.floor(FastColor.ARGB32.blue(i) * (float) 1.25)
+                    Mth.floor(ARGB.red(i) * (float) 1.25),
+                    Mth.floor(ARGB.green(i) * (float) 1.25),
+                    Mth.floor(ARGB.blue(i) * (float) 1.25)
             );
+            //~}
         }
     }
     *///?}

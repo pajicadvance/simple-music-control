@@ -1,5 +1,7 @@
 package me.pajic.simple_music_control.config;
 
+//? sodium {
+
 import dev.kikugie.fletching_table.annotation.fabric.Entrypoint;
 import me.pajic.simple_music_control.SMC;
 import me.pajic.simple_music_control.gui.WidgetPosition;
@@ -42,6 +44,12 @@ public class ModSodiumConfig implements ConfigEntryPoint {
                                 .setTooltip(Component.translatable("simple_music_control.config.situationalMusicInCreative.desc"))
                                 .setDefaultValue(true)
                                 .setBinding(bl -> SMC.CONFIG.situationalMusicInCreative.validateAndSet(bl), () -> SMC.CONFIG.situationalMusicInCreative.get())
+                                .setStorageHandler(SMC.CONFIG::save))
+                        .addOption(builder.createBooleanOption(SMC.id("equalize_music_weights"))
+                                .setName(Component.translatable("simple_music_control.config.equalizeMusicWeights"))
+                                .setTooltip(Component.translatable("simple_music_control.config.equalizeMusicWeights.desc"))
+                                .setDefaultValue(true)
+                                .setBinding(bl -> SMC.CONFIG.equalizeMusicWeights.validateAndSet(bl), () -> SMC.CONFIG.equalizeMusicWeights.get())
                                 .setStorageHandler(SMC.CONFIG::save))
                         .addOption(builder.createIntegerOption(SMC.id("music_min_delay"))
                                 .setName(Component.translatable("simple_music_control.config.musicMinDelay"))
@@ -122,3 +130,4 @@ public class ModSodiumConfig implements ConfigEntryPoint {
                 );
     }
 }
+//?}

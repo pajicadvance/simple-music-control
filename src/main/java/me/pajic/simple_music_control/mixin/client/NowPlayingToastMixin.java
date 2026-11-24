@@ -1,6 +1,6 @@
 package me.pajic.simple_music_control.mixin.client;
 
-//? >=26.1 {
+//? >=1.21.6 {
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(NowPlayingToast.class)
 public class NowPlayingToastMixin {
 
-	@WrapMethod(method = "extractRenderState")
+	@WrapMethod(method = {"extractRenderState", "render"})
     private void dontRenderIfModWidgetEnabled(GuiGraphicsExtractor graphics, Font font, long fullyVisibleForMs, Operation<Void> original) {
         if (!SMC.CONFIG.nowPlayingWidget.get()) original.call(graphics, font, fullyVisibleForMs);
     }

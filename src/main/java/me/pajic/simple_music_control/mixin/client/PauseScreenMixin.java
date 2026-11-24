@@ -7,7 +7,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.PauseScreen;
 import org.spongepowered.asm.mixin.Mixin;
 
-//? >=26.1
+//? >=1.21.6
 import me.pajic.simple_music_control.SMC;
 
 @Mixin(PauseScreen.class)
@@ -19,7 +19,7 @@ public class PauseScreenMixin {
         NowPlayingWidget.displayPauseScreenWidget(graphics);
     }
 
-    //? >=26.1 {
+    //? >=1.21.6 {
     @WrapMethod(method = "rendersNowPlayingToast")
     private boolean dontRenderIfModWidgetEnabled(Operation<Boolean> original) {
         if (!SMC.CONFIG.showNowPlayingWidgetInPauseMenu.get()) return original.call();

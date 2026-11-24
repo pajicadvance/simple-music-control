@@ -2,7 +2,7 @@
 mod.id = "simple_music_control"
 mod.name = "Simple Music Control"
 mod.group = "me.pajic"
-mod.version = "1.5.6"
+mod.version = "1.5.7"
 mod.description = "Reduced delay between music tracks, next track keybind, creative music in survival, stop music on jukebox play"
 mod.authors = "pajic"
 mod.contributors = ""
@@ -23,10 +23,10 @@ publish.env.cf.server = false
 publish.dry_run = false
 
 # loom
-loomx.loom_version = "1.17-SNAPSHOT"
+loomx.loom_version = "1.19-SNAPSHOT"
 
 # dependencies
-loader.fabric = "0.19.5"
+loader.fabric = "0.20.1"
 dep.fzzy_config.coords = "me.fzzyhmstrs:$id:$version"
 dep.fzzy_config.slug = "fzzy-config"
 dep.sodium.coords = "net.caffeinemc:$id-$loader-api:$version"
@@ -38,71 +38,151 @@ dep.fabric-api.coords = "net.fabricmc.fabric-api:$id:$version"
 dep.modmenu.coords = "com.terraformersmc:$id:$version"
 
 [neoforge]
+dep.kotlinforforge.coords = "thedarkcolour:kotlinforforge-neoforge:$version"
 
 
 ["1.21.1"]
 mod.mc_releases = ["1.21", "1.21.1"]
-loader.neo = "21.1.244"
-optional.sodium = "0.8.12+mc1.21.1"
-runtime.sodium_runtime = "0.8.12+mc1.21.1"
+loader.neo = "21.1.267"
+optional.sodium = "0.8.13+mc1.21.1"
+runtime.sodium_runtime = "0.8.13+mc1.21.1"
 
 [fabric."1.21.1"]
 mod.mc_compat = ">=1.21 <=1.21.1"
-required.fabric-api = "0.116.14+1.21.1"
-required.fzzy_config = "0.7.6+1.21"
-runtime.modmenu = "11.0.4"
+required.fabric-api = "0.116.18+1.21.1"
+required.fzzy_config = "0.7.7+1.21"
+runtime.modmenu = "11.0.5"
 
 [neoforge."1.21.1"]
 mod.mc_compat = "[1.21, 1.21.1]"
-required.fzzy_config = "0.7.6+1.21+neoforge"
+required.fzzy_config = "0.7.7+1.21+neoforge"
+
+
+["1.21.3"]
+mod.mc_releases = ["1.21.2", "1.21.3"]
+loader.neo = "21.3.100"
+
+[fabric."1.21.3"]
+mod.mc_compat = ">=1.21.2 <=1.21.3"
+required.fabric-api = "0.114.1+1.21.3"
+required.fzzy_config = "0.7.7+1.21.3"
+runtime.modmenu = "12.0.1"
+
+[neoforge."1.21.3"]
+mod.mc_compat = "[1.21.2, 1.21.3]"
+required.fzzy_config = "0.7.7+1.21.3+neoforge"
+
+
+["1.21.4"]
+mod.mc_releases = ["1.21.4"]
+loader.neo = "21.4.161"
+
+[fabric."1.21.4"]
+mod.mc_compat = "1.21.4"
+required.fabric-api = "0.119.4+1.21.4"
+required.fzzy_config = "0.7.7+1.21.3"
+runtime.modmenu = "13.0.4"
+
+[neoforge."1.21.4"]
+mod.mc_compat = "[1.21.4]"
+required.fzzy_config = "0.7.7+1.21.3+neoforge"
+
+
+["1.21.5"]
+mod.mc_releases = ["1.21.5"]
+loader.neo = "21.5.101"
+
+[fabric."1.21.5"]
+mod.mc_compat = "1.21.5"
+required.fabric-api = "0.128.2+1.21.5"
+required.fzzy_config = "0.7.7+1.21.5"
+runtime.modmenu = "14.0.2"
+
+[neoforge."1.21.5"]
+mod.mc_compat = "[1.21.5]"
+required.fzzy_config = "0.7.7+1.21.5+neoforge"
+
+
+["1.21.8"]
+mod.mc_releases = ["1.21.6", "1.21.7", "1.21.8"]
+loader.neo = "21.8.57"
+
+[fabric."1.21.8"]
+mod.mc_compat = ">=1.21.6 <=1.21.8"
+required.fabric-api = "0.136.1+1.21.8"
+required.fzzy_config = "0.7.7+1.21.9"
+runtime.modmenu = "15.0.2"
+
+[neoforge."1.21.8"]
+mod.mc_compat = "[1.21.6, 1.21.8]"
+required.fzzy_config = "0.7.7+1.21.7+neoforge"
+
+
+["1.21.10"]
+mod.mc_releases = ["1.21.9", "1.21.10"]
+loader.neo = "21.10.64"
+
+[fabric."1.21.10"]
+mod.mc_compat = ">=1.21.9 <=1.21.10"
+required.fabric-api = "0.138.4+1.21.10"
+required.fzzy_config = "0.7.7+1.21.9"
+runtime.modmenu = "16.0.1"
+
+[neoforge."1.21.10"]
+mod.mc_compat = "[1.21.9, 1.21.10]"
+required.fzzy_config = "0.7.7+1.21.9+neoforge"
+runtime.kotlinforforge = "6.0.0"
+
+
+["1.21.11"]
+mod.mc_releases = ["1.21.11"]
+loader.neo = "21.11.48"
+optional.sodium = "0.8.14+mc1.21.11"
+runtime.sodium_runtime = "0.8.14+mc1.21.11"
+
+[fabric."1.21.11"]
+mod.mc_compat = "1.21.11"
+required.fabric-api = "0.141.6+1.21.11"
+required.fzzy_config = "0.7.7+1.21.11"
+runtime.modmenu = "17.0.1"
+
+[neoforge."1.21.11"]
+mod.mc_compat = "[1.21.11]"
+required.fzzy_config = "0.7.7+1.21.11+neoforge"
 
 
 ["26.1"]
 mod.mc_releases = ["26.1", "26.1.1", "26.1.2"]
-loader.neo = "26.1.2.87"
-optional.sodium = "0.9.1+mc26.1.2"
-runtime.sodium_runtime = "0.9.1+mc26.1.2"
+loader.neo = "26.1.2.129"
+optional.sodium = "0.9.2+mc26.1.2"
+runtime.sodium_runtime = "0.9.2+mc26.1.2"
 
 [fabric."26.1"]
 mod.mc_compat = "~26.1"
-required.fabric-api = "0.155.2+26.1.2"
-required.fzzy_config = "0.7.6+26.1-pre-3"
-runtime.modmenu = "18.0.0"
+required.fabric-api = "0.155.3+26.1.2"
+required.fzzy_config = "0.7.7+26.1"
+runtime.modmenu = "18.0.2"
 
 [neoforge."26.1"]
 mod.mc_compat = "[26.1, 26.2)"
-required.fzzy_config = "0.7.6+26.1-pre-3+neoforge"
-
-
-["26.2"]
-mod.mc_releases = ["26.2"]
-loader.neo = "26.2.0.36-beta"
-optional.sodium = "0.9.1+mc26.2"
-runtime.sodium_runtime = "0.9.1+mc26.2"
-
-[fabric."26.2"]
-mod.mc_compat = "~26.2"
-required.fabric-api = "0.155.2+26.2"
-required.fzzy_config = "0.7.6+26.2-pre-3"
-runtime.modmenu = "20.0.1"
-
-[neoforge."26.2"]
-mod.mc_compat = "[26.2, 26.3)"
-required.fzzy_config = "0.7.6+26.2+neoforge"
+required.fzzy_config = "0.7.7+26.1+neoforge"
 
 
 ["26.3"]
-mod.mc_releases = ["26.3"]
-loader.neo = "26.3.0.99"
-optional.sodium = "0.9.2+mc26.3"
-runtime.sodium_runtime = "0.9.2+mc26.3"
+mod.mc_releases = ["26.2", "26.3"]
+loader.neo = "26.3.0.115"
+optional.sodium = "0.9.3+mc26.3"
+runtime.sodium_runtime = "0.9.3+mc26.3"
 
 [fabric."26.3"]
-mod.mc_compat = "~26.3"
-required.fabric-api = "0.160.5+26.3"
+mod.mc_compat = ">=26.2 <26.4"
+dep.fabric-api.range = ">=0.161.0"
+dep.sodium.range = ">=0.9.2"
+required.fabric-api = "0.167.0+26.3"
 required.fzzy_config = "0.7.7+fix3+26.3"
-runtime.modmenu = "21.0.0-beta.1"
+runtime.modmenu = "21.0.1"
 
 [neoforge."26.3"]
-mod.mc_compat = "[26.3, 26.4)"
+mod.mc_compat = "[26.2, 26.4)"
+dep.sodium.range = "[0.9.2,)"
 required.fzzy_config = "0.7.7+fix3+26.3+neoforge"

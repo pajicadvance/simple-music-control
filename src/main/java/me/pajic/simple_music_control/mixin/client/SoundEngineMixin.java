@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.Map;
 
-//? >=26.1
+//? >=1.21.6
 import java.util.Arrays;
 
 @Mixin(SoundEngine.class)
@@ -36,7 +36,7 @@ public class SoundEngineMixin implements MusicPauseControl {
         });
     }
 
-    //? >=26.1 {
+    //? >=1.21.6 {
     @WrapMethod(method = "pauseAllExcept")
     private void pauseMusicIfConfigured(SoundSource[] ignoredSources, Operation<Void> original) {
         if (!SMC.CONFIG.playMusicWhenPaused.get()) {
@@ -69,20 +69,20 @@ public class SoundEngineMixin implements MusicPauseControl {
     }
 
     @WrapMethod(method = "play")
-    //~ if <26.1 'SoundEngine.PlayResult' -> 'void'
-    //~ if <26.1 'Operation<SoundEngine.PlayResult>' -> 'Operation<Void>'
+    //~ if <1.21.6 'SoundEngine.PlayResult' -> 'void'
+    //~ if <1.21.6 'Operation<SoundEngine.PlayResult>' -> 'Operation<Void>'
     private SoundEngine.PlayResult showWidgetOnMusicPlay(SoundInstance instance, Operation<SoundEngine.PlayResult> original) {
         if (instance.getSource().equals(SoundSource.MUSIC)) {
             if (!ModUtil.globalPause) {
-                /*? >=26.1 {*/SoundEngine.PlayResult result = /*?}*/original.call(instance);
+                /*? >=1.21.6 {*/SoundEngine.PlayResult result = /*?}*/original.call(instance);
                 if (SMC.CONFIG.nowPlayingWidget.get() || SMC.CONFIG.showNowPlayingWidgetInPauseMenu.get()) NowPlayingWidget.displayWidget(instance);
-                //? >=26.1
+                //? >=1.21.6
                 return result;
             }
-            //? >=26.1
+            //? >=1.21.6
             return SoundEngine.PlayResult.NOT_STARTED;
         }
-        //~ if <26.1 'return' -> 'else'
+        //~ if <1.21.6 'return' -> 'else'
         return original.call(instance);
     }
 }
